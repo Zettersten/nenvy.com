@@ -1,0 +1,142 @@
+/**
+ * @version 2.0.0
+ * @package OneDrive
+ * @copyright © 2016 Perfect Web sp. z o.o., All rights reserved. https://www.perfect-web.co
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @author Piotr Moćko
+ */
+
+.onedrivefile-error {
+    color: #a80000;
+}
+
+ul.onedrivefolder {
+
+}
+ul.onedrivefolder li {
+
+}
+
+img.onedrivefile-photo.debug {
+    border: 1px dotted #f00 !important;
+    display: inline-block;
+}
+
+.onedrivefile .size {
+    font-size: 90%;
+    color: #666;
+}
+.onedrivefile-file .icon,
+.onedrivefile-photo .icon,
+.onedrivefile-audio .icon,
+.onedrivefile-video .icon,
+.onedrivefile-doc .icon, .onedrivefile-docx .icon, .onedrivefile-odt .icon, 
+.onedrivefile-ppt .icon, .onedrivefile-pptx .icon, .onedrivefile-odp .icon, 
+.onedrivefile-xls .icon, .onedrivefile-xlsx .icon, .onedrivefile-ods .icon, 
+.onedrivefile-mdb .icon, 
+.onedrivefile-pdf .icon, 
+.onedrivefile-rtf .icon, 
+.onedrivefile-txt .icon, 
+.onedrivefile-html .icon,
+.onedrivefile-xml .icon,
+.onedrivefile-asp .icon,
+.onedrivefile-php .icon,
+.onedrivefile-sql .icon,
+.onedrivefile-zip .icon, .onedrivefile-zipx .icon,
+.onedrivefile-7z .icon,
+.onedrivefile-rar .icon,
+.onedrivefile-gz .icon, .onedrivefile-tgz .icon,
+.onedrivefile-bz2 .icon, .onedrivefile-tbz2 .icon,
+.onedrivefile-tar .icon,
+.onedrivefile-exe .icon, .onedrivefile-msi .icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin: 0 4px;
+    vertical-align: middle;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+/* Icon size: tiny 16x16, small 48x48, large 96x96 */
+.onedrivefile-file .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/default.png);
+}
+.onedrivefile-photo .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/photo.png);
+}
+.onedrivefile-audio .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/audio.png);
+}
+.onedrivefile-video .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/video.png);
+}
+.onedrivefile-doc .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/doc.png);
+}
+.onedrivefile-docx .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/docx.png);
+}
+.onedrivefile-ppt .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/ppt.png);
+}
+.onedrivefile-pptx .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/pptx.png);
+}
+.onedrivefile-xls .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/xls.png);
+}
+.onedrivefile-xlsx .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/xlsx.png);
+}
+.onedrivefile-mdb .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/mdb.png);
+}
+.onedrivefile-odt .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/odt.png);
+}
+.onedrivefile-odp .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/odp.png);
+}
+.onedrivefile-ods .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/ods.png);
+}
+.onedrivefile-pdf .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/pdf.png);
+}
+.onedrivefile-rtf .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/rtf.png);
+}
+.onedrivefile-txt .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/txt.png);
+}
+.onedrivefile-html .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/html.png);
+}
+.onedrivefile-xml .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/xml.png);
+}
+.onedrivefile-asp .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/asp.png);
+}
+.onedrivefile-php .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/php.png);
+}
+.onedrivefile-sql .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/sql.png);
+}
+.onedrivefile-zip .icon,
+.onedrivefile-zipx .icon,
+.onedrivefile-7z .icon,
+.onedrivefile-rar .icon,
+.onedrivefile-gz .icon,
+.onedrivefile-tgz .icon,
+.onedrivefile-bz2 .icon,
+.onedrivefile-tbz2 .icon,
+.onedrivefile-tar .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/zip.png);
+}
+.onedrivefile-exe .icon,
+.onedrivefile-msi .icon {
+    background-image: url(//p.sfx.ms/images/icons/tiny/exe.png);
+}

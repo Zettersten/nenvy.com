@@ -1,4 +1,16 @@
 <?php
+
+//Begin Really Simple SSL Load balancing fix
+define('WP_CACHE', true);
+define( 'WPCACHEHOME', '/home/site/wwwroot/wp-content/plugins/wp-super-cache/' );
+$server_opts = array("HTTP_CLOUDFRONT_FORWARDED_PROTO" => "https", "HTTP_CF_VISITOR"=>"https", "HTTP_X_FORWARDED_PROTO"=>"https", "HTTP_X_FORWARDED_SSL"=>"on", "HTTP_X_FORWARDED_SSL"=>"1");
+foreach( $server_opts as $option => $value ) {
+if ( (isset($_ENV["HTTPS"]) && ( "on" == $_ENV["HTTPS"] )) || (isset( $_SERVER[ $option ] ) && ( strpos( $_SERVER[ $option ], $value ) !== false )) ) {
+$_SERVER[ "HTTPS" ] = "on";
+break;
+}
+}
+//END Really Simple SSL
 /**
  * The base configuration for WordPress
  *
@@ -17,26 +29,19 @@
  *
  * @package WordPress
  */
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wsazureeast038');
-
 /** MySQL database username */
 define('DB_USER', 'zettersten@wsazureeast038');
-
 /** MySQL database password */
 define('DB_PASSWORD', 'Erik5388z!');
-
 /** MySQL hostname */
 define('DB_HOST', 'wsazureeast038.mysql.database.azure.com');
-
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
-
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
-
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -54,9 +59,7 @@ define('AUTH_SALT',        'euGQ.$gcO>pL/j[UD.yx#=297>5i#>$Q+CjY[J^AjI AUo6}7L5u
 define('SECURE_AUTH_SALT', 'HEWsb~^G3t}ZN-?j37e&zRaI0GGX|{#j<FFJNEXhdHN;cSLQm$ ?O>$b5qwE5]BV');
 define('LOGGED_IN_SALT',   'q+mTl]jB2,/67(QKUwMw*QF@n=)3Rjf;#~6b]GB+gVI@dY,*O(6AmTjpgW%(=wn7');
 define('NONCE_SALT',       'YG?eali*tUw5}Q4igBWR1)i)_4*b$J.zawN~i,6mA})ANDWF,5UDA8GZ<h@*<~U}');
-
 /**#@-*/
-
 /**
  * WordPress Database Table prefix.
  *
@@ -64,7 +67,6 @@ define('NONCE_SALT',       'YG?eali*tUw5}Q4igBWR1)i)_4*b$J.zawN~i,6mA})ANDWF,5UD
  * a unique prefix. Only numbers, letters, and underscores please!
  */
 $table_prefix  = 'wp_';
-
 /**
  * For developers: WordPress debugging mode.
  *
@@ -78,13 +80,9 @@ $table_prefix  = 'wp_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define('WP_DEBUG', false);
-
-
 /* That's all, stop editing! Happy blogging. */   
-
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
-
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

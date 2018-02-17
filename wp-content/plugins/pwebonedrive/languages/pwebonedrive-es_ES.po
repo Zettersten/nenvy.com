@@ -1,0 +1,173 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfect OneDrive\n"
+"POT-Creation-Date: 2014-04-15 15:52+0100\n"
+"PO-Revision-Date: 2014-04-22 13:09+0100\n"
+"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
+"Language-Team: Perfect-Web.co <office@perfect-web.co>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin-buttons.php:48
+msgid "OneDrive Galery"
+msgstr "Galería de OneDrive "
+
+#: admin-buttons.php:49
+msgid "OneDrive File"
+msgstr "Archivo de OneDrive "
+
+#: admin-buttons.php:50
+msgid "OneDrive emergency exit"
+msgstr "Salida de emergencia de OneDrive "
+
+#: admin-buttons.php:51
+msgid "Perfect OneDrive Gallery: select only folder with photos!"
+msgstr "Galería de Perfect OneDrive: ¡Seleccione una carpeta con imágenes!"
+
+#: admin-buttons.php:52
+msgid "Perfect OneDrive Gallery: select only folder with photos, not a file!"
+msgstr ""
+"Galería de Perfect OneDrive: ¡Seleccione una carpeta con imágenes, no un "
+"archivo!"
+
+#: admin-buttons.php:105
+msgid "Error while saving selected resource. Try again."
+msgstr "Error mientras se guardaba el recurso seleccionado. Intente de nuevo."
+
+#: admin-buttons.php:107
+msgid ""
+"Access token for current OneDrive session was not saved. Logout from "
+"OneDrive and try again."
+msgstr ""
+"El token de acceso para la sesión actual  de OneDrive no fue salvado. "
+"Desloguéese de OneDrive y pruebe nuevamente."
+
+#: admin.php:17
+msgid "Perfect OneDrive Gallery & File"
+msgstr "Archivo y Galería de Perfect OneDrive"
+
+#: admin.php:17
+msgid "Perfect OneDrive"
+msgstr "Perfect OneDrive"
+
+#: admin.php:24
+msgid "Settings"
+msgstr "Configuración"
+
+#: admin.php:39
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Usted no tiene suficientes permisos para acceder a esta página."
+
+#: admin.php:54
+msgid "Incorrect Client ID."
+msgstr "ID del Cliente Incorrecto."
+
+#: admin.php:58
+msgid "Missing Client ID."
+msgstr "ID del Cliente faltante."
+
+#: admin.php:65
+msgid "Missing Client secret."
+msgstr "Clave secreta del Cliente faltante."
+
+#: admin.php:75
+msgid "Settings saved."
+msgstr "Configuración guardada."
+
+#: admin.php:83
+msgid "Version"
+msgstr "Versión"
+
+#: admin.php:87
+msgid "Perfect OneDrive Gallery & File Settings"
+msgstr "Configuración de Archivo y de Galería de Perfect OneDrive "
+
+#: admin.php:90
+msgid "Documentation"
+msgstr "Documentación"
+
+#: admin.php:93
+msgid "Buy Support"
+msgstr "Comprar Soporte"
+
+#: admin.php:97
+msgid "This plugin is compatible with WordPress 2.8 or higher."
+msgstr "Este plugin es compatible con WordPress 2.8 o superior."
+
+#: admin.php:102
+msgid ""
+"Share easily your photos and files stored on Microsoft OneDrive. You can "
+"display a gallery with your photos or a link to a file for download."
+msgstr ""
+"Comparta fácilmente sus fotos y ficheros almacenados en Microsoft OneDrive. "
+"Puede mostrar una galería con sus fotos o un enlace a un archivo para su "
+"descarga."
+
+#: admin.php:113
+msgid "Register your site in"
+msgstr "Registrar si sitio en"
+
+#: admin.php:114
+msgid "Windows Live application management"
+msgstr "Administrador de aplicaciones de Windows Live"
+
+#: admin.php:115
+msgid "Remember to set"
+msgstr "Recuerde establecer"
+
+#: admin.php:115
+msgid "Redirect domain"
+msgstr "Redireccionar dominio"
+
+#: admin.php:117
+msgid "and"
+msgstr "y"
+
+#: admin.php:117
+msgid "Mobile client app: No"
+msgstr "App de cliente de Móvil: No"
+
+#: admin.php:118
+msgid "Enhanced redirection security: Disabled"
+msgstr "Seguridad de redirección mejorada: Desactivado"
+
+#: admin.php:119
+msgid "Read how to"
+msgstr "Leer cómo"
+
+#: admin.php:119
+msgid "get your Client ID"
+msgstr "obtener su ID de Cliente"
+
+#: admin.php:124
+msgid "Client ID"
+msgstr "ID de Cliente"
+
+#: admin.php:130
+msgid "Client secret"
+msgstr "Clave secreta de Cliente"
+
+#: pwebonedrive.php:141
+msgid "There are no images in this gallery!"
+msgstr "¡No existen imágenes en esta galería!"
+
+#: pwebonedrive.php:147
+msgid "Can not load images!"
+msgstr "¡No se pueden cargar las imágenes!"
+
+#: pwebonedrive.php:244
+msgid "Can not load file!"
+msgstr "¡No se puede cargar el archivo!"
+
+#: pwebonedrive.php:268 pwebonedrive.php:309 pwebonedrive.php:382
+#: pwebonedrive.php:422 pwebonedrive.php:445
+msgid "Can not load data!"
+msgstr "¡No se pueden cargar los datos!"

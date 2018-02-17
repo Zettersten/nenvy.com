@@ -1,0 +1,173 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfect OneDrive\n"
+"POT-Creation-Date: 2014-04-15 15:52+0100\n"
+"PO-Revision-Date: 2014-04-16 13:13+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: Perfect-Web.co <office@perfect-web.co>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin-buttons.php:48
+msgid "OneDrive Galery"
+msgstr "OneDrive galerija"
+
+#: admin-buttons.php:49
+msgid "OneDrive File"
+msgstr "OneDrive fajl"
+
+#: admin-buttons.php:50
+msgid "OneDrive emergency exit"
+msgstr "OneDrive izlaz u slučaju nužde"
+
+#: admin-buttons.php:51
+msgid "Perfect OneDrive Gallery: select only folder with photos!"
+msgstr "Perfektna OneDrive galerija: izaberite samo folder sa fotografijama!"
+
+#: admin-buttons.php:52
+msgid "Perfect OneDrive Gallery: select only folder with photos, not a file!"
+msgstr ""
+"PPerfektna OneDrive galerija: izaberite samo folder sa fotografijama, ne "
+"fajl!"
+
+#: admin-buttons.php:105
+msgid "Error while saving selected resource. Try again."
+msgstr "Greška prilikom sačuvavanja izabranih sredstava. Pokušajte ponovo."
+
+#: admin-buttons.php:107
+msgid ""
+"Access token for current OneDrive session was not saved. Logout from "
+"OneDrive and try again."
+msgstr ""
+"Tokeni za pristup za trenutne OneDrive sesije nisu sačuvani. Logout sa "
+"OneDrive i pokušajte opet."
+
+#: admin.php:17
+msgid "Perfect OneDrive Gallery & File"
+msgstr "Perfektna OneDrive galerija i fajl"
+
+#: admin.php:17
+msgid "Perfect OneDrive"
+msgstr "Perfektna OneDrive"
+
+#: admin.php:24
+msgid "Settings"
+msgstr "Postavke"
+
+#: admin.php:39
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nemate dovoljno dozvola da biste pristupili ovoj stranixi."
+
+#: admin.php:54
+msgid "Incorrect Client ID."
+msgstr "Pogrešan  ID klijenta."
+
+#: admin.php:58
+msgid "Missing Client ID."
+msgstr "Nedostaje  ID klijenta."
+
+#: admin.php:65
+msgid "Missing Client secret."
+msgstr "Nedostaje tajna klijenta"
+
+#: admin.php:75
+msgid "Settings saved."
+msgstr "Postavke sačuvane"
+
+#: admin.php:83
+msgid "Version"
+msgstr "Verzija"
+
+#: admin.php:87
+msgid "Perfect OneDrive Gallery & File Settings"
+msgstr "Perfektna OneDrive Glerija i fajl postavke"
+
+#: admin.php:90
+msgid "Documentation"
+msgstr "Dokumentacija"
+
+#: admin.php:93
+msgid "Buy Support"
+msgstr "Kupiti podršku"
+
+#: admin.php:97
+msgid "This plugin is compatible with WordPress 2.8 or higher."
+msgstr "Ovaj plugin je kompatibilan sa WordPress 2.8 ili većim."
+
+#: admin.php:102
+msgid ""
+"Share easily your photos and files stored on Microsoft OneDrive. You can "
+"display a gallery with your photos or a link to a file for download."
+msgstr ""
+"Podelite svoje fotografije lako i datoteke uskladištene na Microsoft "
+"OneDrive . Možete da prikažete slike sa vašim fotografijama ili link ka "
+"datoteci za preuzimanje ."
+
+#: admin.php:113
+msgid "Register your site in"
+msgstr "Registrujte vaš sajt"
+
+#: admin.php:114
+msgid "Windows Live application management"
+msgstr "Windows Live aplikacija menadžment"
+
+#: admin.php:115
+msgid "Remember to set"
+msgstr "Ne zaboravite da podesite"
+
+#: admin.php:115
+msgid "Redirect domain"
+msgstr "Usmeriti domain"
+
+#: admin.php:117
+msgid "and"
+msgstr "i"
+
+#: admin.php:117
+msgid "Mobile client app: No"
+msgstr "Mobililna klijent aplikacija: Ne"
+
+#: admin.php:118
+msgid "Enhanced redirection security: Disabled"
+msgstr "Poboljšana bezbednost preusmeravanja: Onemogućeno"
+
+#: admin.php:119
+msgid "Read how to"
+msgstr "Pročitajte kako da "
+
+#: admin.php:119
+msgid "get your Client ID"
+msgstr "nabavite svoj ID klijenta"
+
+#: admin.php:124
+msgid "Client ID"
+msgstr " ID klijenta"
+
+#: admin.php:130
+msgid "Client secret"
+msgstr "Tajni klijent"
+
+#: pwebonedrive.php:141
+msgid "There are no images in this gallery!"
+msgstr "Nema slika u ovoj galeriji!"
+
+#: pwebonedrive.php:147
+msgid "Can not load images!"
+msgstr "Slike se ne mogu učitati!"
+
+#: pwebonedrive.php:244
+msgid "Can not load file!"
+msgstr "Fajl se ne može učitati!"
+
+#: pwebonedrive.php:268 pwebonedrive.php:309 pwebonedrive.php:382
+#: pwebonedrive.php:422 pwebonedrive.php:445
+msgid "Can not load data!"
+msgstr "Podaci se ne mogu učitati!"
