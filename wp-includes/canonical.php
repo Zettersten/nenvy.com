@@ -32,7 +32,7 @@
  * @global bool $is_IIS
  * @global WP_Query $wp_query
  * @global wpdb $wpdb WordPress database abstraction object.
- * @global WP $wp Current WordPress environment instance. 
+ * @global WP $wp Current WordPress environment instance.
  *
  * @param string $requested_url Optional. The URL that was requested, used to
  *		figure if redirect is needed.
@@ -378,16 +378,21 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 
 	// www.example.com vs example.com
 	$user_home = @parse_url(home_url());
-	if ( !empty($user_home['host']) )
-		$redirect['host'] = $user_home['host'];
-	if ( empty($user_home['path']) )
-		$user_home['path'] = '/';
 
-	// Handle ports
-	if ( !empty($user_home['port']) )
-		$redirect['port'] = $user_home['port'];
-	else
-		unset($redirect['port']);
+	if ($redirect['host'] != "localhost") {
+
+		if ( !empty($user_home['host']) )
+			$redirect['host'] = $user_home['host'];
+		if ( empty($user_home['path']) )
+			$user_home['path'] = '/';
+
+		// Handle ports
+		if ( !empty($user_home['port']) )
+			$redirect['port'] = $user_home['port'];
+		else
+			unset($redirect['port']);
+
+	}
 
 	// trailing /index.php
 	$redirect['path'] = preg_replace('|/' . preg_quote( $wp_rewrite->index, '|' ) . '/*?$|', '/', $redirect['path']);

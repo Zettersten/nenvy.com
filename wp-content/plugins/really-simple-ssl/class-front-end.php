@@ -64,15 +64,14 @@ if ( ! class_exists( 'rsssl_front_end' ) ) {
             }
         }
 
-
         /**
-         * Force SSL on wp rest api
-         *
-         * @since  2.5.14
-         *
-         * @access public
-         *
-         */
+		 * Force SSL on wp rest api
+		 *
+		 * @since  2.5.14
+		 *
+		 * @access public
+		 *
+		 */
 
         public function wp_rest_api_force_ssl()
         {
@@ -86,8 +85,23 @@ if ( ! class_exists( 'rsssl_front_end' ) ) {
             }
         }
 
-
         /**
+		 * is_localhost
+		 *
+		 * @since  2.5.14
+		 *
+		 * @access public
+		 *
+		 */
+
+        public function is_localhost()
+        {
+            $current_host = $_SERVER['HTTP_HOST'];
+
+			return strpos($current_host, 'localhost') !== false;
+        }
+
+		/**
          * Redirect using wp redirect
          *
          * @since  2.5.0
@@ -98,6 +112,9 @@ if ( ! class_exists( 'rsssl_front_end' ) ) {
 
         public function wp_redirect_to_ssl()
         {
+			if ($this->is_localhost()) {
+                return;
+			}
 
             if (!is_ssl() && !(defined("rsssl_no_wp_redirect") && rsssl_no_wp_redirect)) {
                 $redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -155,7 +172,7 @@ if ( ! class_exists( 'rsssl_front_end' ) ) {
 
         public function force_ssl_with_javascript()
         {
-            ?>
+?>
             <script>
                 if (document.location.protocol != "https:") {
                     document.location = document.URL.replace(/^http:/i, "https:");

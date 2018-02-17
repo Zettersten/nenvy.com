@@ -4,6 +4,11 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>" />
+<link href="<?php echo get_template_directory_uri(); ?>/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="<?php echo get_template_directory_uri(); ?>/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+  <!--[if IE]>
+      <link href="<?php echo get_template_directory_uri(); ?>/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <![endif]-->
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
