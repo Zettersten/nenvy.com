@@ -1,5 +1,7 @@
 <?php
 
+    require_once('utils/bootstrap-nav-walker.php');
+
 	$name = $_SERVER["SERVER_NAME"];
 
 	if ($name == "localhost")

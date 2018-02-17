@@ -1001,6 +1001,7 @@
     <Compile Include="wp-content\themes\blankslate\single.php" />
     <Compile Include="wp-content\themes\blankslate\style.css" />
     <Compile Include="wp-content\themes\blankslate\tag.php" />
+    <Compile Include="wp-content\themes\blankslate\utils\bootstrap-nav-walker.php" />
     <Compile Include="wp-content\themes\index.php" />
     <Compile Include="wp-content\uploads\2018\02\5a7d6177b2e5d-5a7d6177b2ea5Nenvy-Logo-BW-Large.png-1024x448.png" />
     <Compile Include="wp-content\uploads\2018\02\5a7d6177b2e5d-5a7d6177b2ea5Nenvy-Logo-BW-Large.png-150x150.png" />
@@ -2003,6 +2004,7 @@
     <Folder Include="wp-content\themes" />
     <Folder Include="wp-content\themes\blankslate\sass\" />
     <Folder Include="wp-content\themes\blankslate\stylesheets\" />
+    <Folder Include="wp-content\themes\blankslate\utils\" />
     <Folder Include="wp-content\uploads\2018\02" />
     <Folder Include="wp-content\uploads\2018" />
     <Folder Include="wp-content\uploads" />
