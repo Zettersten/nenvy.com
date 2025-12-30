@@ -612,14 +612,6 @@ body {
         width: 100%;
     }
 
-    .logo-image {
-        max-width: 150px;
-    }
-
-    .footer-logo-image {
-        max-width: 120px;
-    }
-
     .philosophy,
     .capabilities,
     .subscriptions,
