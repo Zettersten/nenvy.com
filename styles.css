@@ -405,6 +405,11 @@ body {
     margin-bottom: 1rem;
 }
 
+#paypal-button-container-P-2LH401466F9693536NFKFLVA {
+    margin: 2rem 0 1rem;
+    min-height: 40px;
+}
+
 .subscription-note {
     text-align: center;
     font-size: 0.875rem;
@@ -494,8 +499,9 @@ body {
 
 /* Contact Section */
 .contact {
-    padding: 10rem 0;
+    padding: 8rem 0;
     background: var(--color-bg);
+    min-height: auto;
 }
 
 .contact-content {

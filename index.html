@@ -92,7 +92,7 @@
                         <li>Performance optimization</li>
                         <li>Direct access to the builder</li>
                     </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
+                    <div id="paypal-button-container-P-2LH401466F9693536NFKFLVA"></div>
                     <p class="subscription-note">Cancel anytime</p>
                 </div>
                 <div class="subscription-card">
@@ -182,6 +182,25 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATnObauWTeaii36d5zifRVm7VcG5a34SO1BW0vBdMA7vTOD7hGOoPPkcJEb-RBsSuuVI27oWVSTa2SJ5&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     <script src="script.js"></script>
+    <script>
+      paypal.Buttons({
+          style: {
+              shape: 'rect',
+              color: 'black',
+              layout: 'horizontal',
+              label: 'subscribe'
+          },
+          createSubscription: function(data, actions) {
+            return actions.subscription.create({
+              plan_id: 'P-2LH401466F9693536NFKFLVA'
+            });
+          },
+          onApprove: function(data, actions) {
+            alert('Subscription successful! Subscription ID: ' + data.subscriptionID);
+          }
+      }).render('#paypal-button-container-P-2LH401466F9693536NFKFLVA');
+    </script>
 </body>
 </html>

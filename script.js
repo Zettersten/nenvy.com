@@ -73,8 +73,11 @@ function initThreeJS() {
 }
 
 function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - windowHalfX) * 0.001;
-    mouseY = (event.clientY - windowHalfY) * 0.001;
+    // Reduced sensitivity - normalize mouse position more gently
+    const normalizedX = (event.clientX - windowHalfX) / window.innerWidth;
+    const normalizedY = (event.clientY - windowHalfY) / window.innerHeight;
+    mouseX = normalizedX * 0.3; // Much smaller multiplier
+    mouseY = normalizedY * 0.3;
 }
 
 function onWindowResize() {
@@ -94,15 +97,15 @@ function animate() {
     targetY += (mouseY - targetY) * 0.05;
 
     if (geometry) {
-        // Rotate based on cursor position
-        geometry.rotation.x += targetY * 0.5;
-        geometry.rotation.y += targetX * 0.5;
+        // Rotate based on cursor position - much slower
+        geometry.rotation.x += targetY * 0.15;
+        geometry.rotation.y += targetX * 0.15;
         
         // Subtle continuous rotation
         geometry.rotation.z += 0.002;
 
-        // Scale based on cursor distance from center
-        const scale = 1 + (Math.abs(targetX) + Math.abs(targetY)) * 0.3;
+        // Scale based on cursor distance from center - reduced effect
+        const scale = 1 + (Math.abs(targetX) + Math.abs(targetY)) * 0.1;
         geometry.scale.set(scale, scale, scale);
     }
 
