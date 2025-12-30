@@ -239,6 +239,8 @@ body {
 
 .manifesto-line:nth-child(1) { animation-delay: 0.1s; }
 .manifesto-line:nth-child(2) { animation-delay: 0.2s; }
+.manifesto-line:nth-child(3) { animation-delay: 0.3s; }
+.manifesto-line:nth-child(4) { animation-delay: 0.4s; }
 
 .philosophy-support {
     max-width: 700px;
@@ -308,11 +310,23 @@ body {
     color: var(--color-accent);
 }
 
-.capability-description {
-    color: var(--color-text-muted);
-    font-size: 1rem;
-    line-height: 1.8;
+.capability-list {
+    list-style: none;
     margin-bottom: 2rem;
+}
+
+.capability-list li {
+    padding: 0.5rem 0;
+    color: var(--color-text-muted);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.capability-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
 }
 
 .capability-quote {
@@ -322,7 +336,6 @@ body {
     line-height: 1.6;
     border-left: 1px solid var(--color-border);
     padding-left: 1.5rem;
-    margin-top: 1.5rem;
 }
 
 .capabilities-cta {
@@ -487,9 +500,14 @@ body {
     font-weight: 500;
 }
 
-.about-text p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
+.about-quote {
+    margin-top: 2rem;
+    padding-left: 2rem;
+    border-left: 1px solid var(--color-accent);
+    font-style: italic;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    line-height: 1.6;
 }
 
 /* Contact Section */
@@ -610,6 +628,14 @@ body {
 
     .hero-ctas .btn {
         width: 100%;
+    }
+
+    .logo-image {
+        max-width: 150px;
+    }
+
+    .footer-logo-image {
+        max-width: 120px;
     }
 
     .philosophy,
