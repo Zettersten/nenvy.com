@@ -513,7 +513,7 @@ body {
 
 /* Contact Section */
 .contact {
-    padding: 8rem 0;
+    padding: 5rem 0 3rem;
     background: var(--color-bg);
     min-height: auto;
 }
@@ -559,9 +559,10 @@ body {
 
 /* Footer */
 .footer {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
     background: var(--color-bg-light);
     border-top: 1px solid var(--color-border);
+    margin-top: 0;
 }
 
 .footer-content {
@@ -637,7 +638,7 @@ body {
     .subscriptions,
     .about,
     .contact {
-        padding: 5rem 0;
+        padding: 4rem 0 2rem;
     }
 
     .manifesto-line {
