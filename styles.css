@@ -346,6 +346,8 @@ body {
     border: 1px solid var(--color-border);
     background: var(--color-bg);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .subscription-card:hover {
@@ -383,6 +385,7 @@ body {
 .subscription-features {
     list-style: none;
     margin-bottom: 2.5rem;
+    flex-grow: 1;
 }
 
 .subscription-features li {
@@ -406,8 +409,19 @@ body {
 }
 
 #paypal-button-container-P-2LH401466F9693536NFKFLVA {
-    margin: 2rem 0 1rem;
-    min-height: 40px;
+    margin: 2.5rem 0 1rem;
+    min-height: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure PayPal button container doesn't break layout */
+#paypal-button-container-P-2LH401466F9693536NFKFLVA > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .subscription-note {
