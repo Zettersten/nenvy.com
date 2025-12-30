@@ -14,6 +14,9 @@
     --color-border: #222;
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --section-pad-y: 10rem;
+    --section-pad-y-compact: 8rem;
+    --scroll-margin: 2rem;
 }
 
 html {
@@ -35,6 +38,17 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+/* Global section spacing + anchor offset */
+section {
+    scroll-margin-top: var(--scroll-margin);
+}
+
+/* Parallax (applied only to explicitly marked elements) */
+.parallax {
+    transform: translate3d(0, var(--parallax-y, 0px), 0);
+    will-change: transform;
 }
 
 /* Hero Section */
@@ -75,7 +89,7 @@ body {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-text-muted);
-    margin-bottom: 5rem;
+    margin-bottom: clamp(2.75rem, 6vw, 4.5rem);
     opacity: 0;
     animation: fadeIn 1s ease-out 0.6s forwards;
     display: flex;
@@ -111,7 +125,7 @@ body {
     font-size: clamp(1.125rem, 2.25vw, 1.5rem);
     font-weight: 400;
     color: var(--color-text-muted);
-    margin-bottom: 3.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3.25rem);
     line-height: 1.7;
     max-width: 750px;
     margin-left: auto;
@@ -219,7 +233,7 @@ body {
 
 /* Philosophy Section */
 .philosophy {
-    padding: 10rem 0;
+    padding: var(--section-pad-y) 0;
     background: var(--color-bg-light);
     position: relative;
 }
@@ -266,7 +280,7 @@ body {
 
 /* Capabilities Section */
 .capabilities {
-    padding: 10rem 0;
+    padding: var(--section-pad-y) 0;
     background: var(--color-bg);
 }
 
@@ -274,7 +288,7 @@ body {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 300;
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: clamp(2.75rem, 5vw, 4.5rem);
     color: var(--color-accent);
     letter-spacing: -0.02em;
 }
@@ -282,7 +296,7 @@ body {
 .capabilities-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
+    gap: clamp(1.5rem, 3vw, 3rem);
     margin-bottom: 4rem;
 }
 
@@ -336,14 +350,14 @@ body {
 
 /* Subscriptions Section */
 .subscriptions {
-    padding: 10rem 0;
+    padding: var(--section-pad-y) 0;
     background: var(--color-bg-light);
 }
 
 .subscriptions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 3rem;
+    gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .subscription-card {
@@ -437,7 +451,7 @@ body {
 
 /* Proof Section */
 .proof {
-    padding: 8rem 0;
+    padding: var(--section-pad-y-compact) 0;
     background: var(--color-bg);
     text-align: center;
 }
@@ -461,7 +475,7 @@ body {
 
 /* About Section */
 .about {
-    padding: 10rem 0;
+    padding: var(--section-pad-y) 0;
     background: var(--color-bg-light);
 }
 
@@ -502,10 +516,6 @@ body {
     margin-bottom: 2rem;
 }
 
-.about-text p {
-    margin-bottom: 1.5rem;
-}
-
 .about-text strong {
     color: var(--color-accent);
     font-weight: 500;
@@ -518,7 +528,7 @@ body {
 
 /* Contact Section */
 .contact {
-    padding: 5rem 0 3rem;
+    padding: var(--section-pad-y-compact) 0;
     background: var(--color-bg);
     min-height: auto;
 }
@@ -613,6 +623,12 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    :root {
+        --section-pad-y: 4rem;
+        --section-pad-y-compact: 3.5rem;
+        --scroll-margin: 1.25rem;
+    }
+
     .container {
         padding: 0 1.5rem;
     }
@@ -636,14 +652,6 @@ body {
 
     .hero-ctas .btn {
         width: 100%;
-    }
-
-    .philosophy,
-    .capabilities,
-    .subscriptions,
-    .about,
-    .contact {
-        padding: 4rem 0 2rem;
     }
 
     .manifesto-line {
@@ -677,6 +685,36 @@ body {
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .scroll-line {
+        animation: none;
+    }
+
+    .hero-content,
+    .logo,
+    .manifesto-line,
+    .scroll-indicator {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .parallax {
+        transform: none;
+    }
+
+    .btn,
+    .capability-card,
+    .subscription-card,
+    .logo-image {
+        transition: none;
     }
 }
 

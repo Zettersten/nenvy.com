@@ -1,9 +1,12 @@
 // Three.js WebGL Animation for Hero Section
-let scene, camera, renderer, geometry, material, mesh;
+let scene, camera, renderer, geometry;
 let mouseX = 0, mouseY = 0;
 let targetX = 0, targetY = 0;
 let windowHalfX = window.innerWidth / 2;
 let windowHalfY = window.innerHeight / 2;
+let prefersReducedMotion = false;
+let threeIsRunning = false;
+let threeRafId = null;
 
 function initThreeJS() {
     const canvas = document.getElementById('canvas');
@@ -66,10 +69,18 @@ function initThreeJS() {
     camera.position.z = 5;
 
     // Mouse move handler
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-    window.addEventListener('resize', onWindowResize, false);
+    if (!prefersReducedMotion) {
+        document.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
+    }
+    window.addEventListener('resize', onWindowResize, { passive: true });
 
-    animate();
+    // Reduced motion: render a single static frame.
+    if (prefersReducedMotion) {
+        renderer.render(scene, camera);
+        return;
+    }
+
+    startThreeAnimation();
 }
 
 function onDocumentMouseMove(event) {
@@ -87,10 +98,12 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (!threeIsRunning) return;
+    threeRafId = requestAnimationFrame(animate);
 
     // Smooth interpolation for cursor following
     targetX += (mouseX - targetX) * 0.05;
@@ -112,6 +125,21 @@ function animate() {
     renderer.render(scene, camera);
 }
 
+function startThreeAnimation() {
+    if (prefersReducedMotion) return;
+    if (threeIsRunning) return;
+    threeIsRunning = true;
+    animate();
+}
+
+function stopThreeAnimation() {
+    threeIsRunning = false;
+    if (threeRafId != null) {
+        cancelAnimationFrame(threeRafId);
+        threeRafId = null;
+    }
+}
+
 // Smooth scroll enhancement
 function initSmoothScroll() {
     // Add smooth scroll behavior for anchor links
@@ -123,46 +151,55 @@ function initSmoothScroll() {
             e.preventDefault();
             const target = document.querySelector(href);
             if (target) {
-                const offsetTop = target.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+                const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+                target.scrollIntoView({ behavior, block: 'start' });
+                history.pushState(null, '', href);
             }
         });
     });
 }
 
-// Parallax effect for sections
-function initParallax() {
-    const sections = document.querySelectorAll('section');
-    
-    function handleScroll() {
-        const scrollY = window.pageYOffset;
-        
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-            
-            if (isVisible && section.id !== 'hero') {
-                const speed = 0.5;
-                const yPos = -(scrollY * speed);
-                section.style.transform = `translateY(${yPos}px)`;
-            }
-        });
-    }
-    
-    // Throttle scroll events
+// Parallax effect (safe): applied only to elements explicitly marked with data-parallax.
+// This avoids layout/overlap bugs from transforming whole sections.
+function initParallaxElements() {
+    if (prefersReducedMotion) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return; // avoid mobile/touch jank
+
+    const items = Array.from(document.querySelectorAll('[data-parallax]'));
+    if (items.length === 0) return;
+
     let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                handleScroll();
-                ticking = false;
-            });
-            ticking = true;
+
+    function update() {
+        const viewportH = window.innerHeight;
+        const viewportCenter = viewportH / 2;
+
+        for (const el of items) {
+            const max = parseFloat(el.getAttribute('data-parallax') || '0');
+            if (!Number.isFinite(max) || max === 0) continue;
+
+            const rect = el.getBoundingClientRect();
+            const elCenter = rect.top + rect.height / 2;
+            const distance = viewportCenter - elCenter;
+            const range = viewportH / 2 + rect.height / 2;
+            const progress = Math.max(-1, Math.min(1, range === 0 ? 0 : distance / range));
+            const y = progress * max;
+
+            el.style.setProperty('--parallax-y', `${y.toFixed(2)}px`);
         }
-    }, { passive: true });
+
+        ticking = false;
+    }
+
+    function onScrollOrResize() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    update();
 }
 
 // Intersection Observer for fade-in animations
@@ -200,21 +237,20 @@ function initScrollAnimations() {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     initThreeJS();
     initSmoothScroll();
     initScrollAnimations();
     
-    // Initialize parallax only on desktop
-    if (window.innerWidth > 768) {
-        initParallax();
-    }
+    // Initialize safe parallax only on non-touch desktop.
+    if (window.innerWidth > 768) initParallaxElements();
 });
 
 // Handle page visibility to pause/resume animation
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        // Page is hidden, could pause animation here if needed
+        stopThreeAnimation();
     } else {
-        // Page is visible, resume animation
+        startThreeAnimation();
     }
 });
