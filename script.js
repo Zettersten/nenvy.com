@@ -1,4 +1,13 @@
-// Three.js WebGL Animation for Hero Section
+/**
+ * Motion + interaction layer
+ * - GSAP/ScrollTrigger for reveals + parallax (desktop-first, reduced-motion safe)
+ * - Three.js hero geometry as an ambient layer (optional)
+ * - Copy-to-clipboard microinteraction
+ * - Magnetic CTA hover (pointer fine only)
+ */
+
+document.documentElement.classList.add('js');
+
 let scene, camera, renderer, geometry;
 let mouseX = 0, mouseY = 0;
 let targetX = 0, targetY = 0;
@@ -8,249 +17,283 @@ let prefersReducedMotion = false;
 let threeIsRunning = false;
 let threeRafId = null;
 
+const isCoarsePointer = () => window.matchMedia('(pointer: coarse)').matches;
+
 function initThreeJS() {
-    const canvas = document.getElementById('canvas');
-    if (!canvas) return;
+  const canvas = document.getElementById('canvas');
+  if (!canvas) return;
+  if (typeof THREE === 'undefined') return;
 
-    // Scene setup
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    renderer = new THREE.WebGLRenderer({ 
-        canvas: canvas,
-        alpha: true,
-        antialias: true 
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+  renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true,
+  });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const group = new THREE.Group();
+
+  const makeMesh = (geo, opacity) => {
+    const mat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      wireframe: true,
+      transparent: true,
+      opacity,
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    return new THREE.Mesh(geo, mat);
+  };
 
-    // Create multiple geometric shapes
-    const group = new THREE.Group();
-    
-    // Main geometric shape - subtle and elegant
-    const geometry1 = new THREE.IcosahedronGeometry(2, 0);
-    const material1 = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.15
-    });
-    const mesh1 = new THREE.Mesh(geometry1, material1);
-    group.add(mesh1);
+  const mesh1 = makeMesh(new THREE.IcosahedronGeometry(2.15, 0), 0.14);
+  const mesh2 = makeMesh(new THREE.OctahedronGeometry(1.6, 0), 0.09);
+  const mesh3 = makeMesh(new THREE.TetrahedronGeometry(1.15, 0), 0.07);
 
-    // Secondary shape
-    const geometry2 = new THREE.OctahedronGeometry(1.5, 0);
-    const material2 = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.1
-    });
-    const mesh2 = new THREE.Mesh(geometry2, material2);
-    mesh2.rotation.x = Math.PI / 4;
-    mesh2.rotation.y = Math.PI / 4;
-    group.add(mesh2);
+  mesh2.rotation.set(Math.PI / 4, Math.PI / 4, 0);
+  mesh3.rotation.set(-Math.PI / 4, -Math.PI / 4, 0);
 
-    // Tertiary shape
-    const geometry3 = new THREE.TetrahedronGeometry(1, 0);
-    const material3 = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.08
-    });
-    const mesh3 = new THREE.Mesh(geometry3, material3);
-    mesh3.rotation.x = -Math.PI / 4;
-    mesh3.rotation.y = -Math.PI / 4;
-    group.add(mesh3);
+  group.add(mesh1, mesh2, mesh3);
+  geometry = group;
+  scene.add(group);
 
-    scene.add(group);
-    geometry = group;
-    
-    camera.position.z = 5;
+  camera.position.z = 5.2;
 
-    // Mouse move handler
-    if (!prefersReducedMotion) {
-        document.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
-    }
-    window.addEventListener('resize', onWindowResize, { passive: true });
+  if (!prefersReducedMotion && !isCoarsePointer()) {
+    document.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
+  }
+  window.addEventListener('resize', onWindowResize, { passive: true });
 
-    // Reduced motion: render a single static frame.
-    if (prefersReducedMotion) {
-        renderer.render(scene, camera);
-        return;
-    }
+  if (prefersReducedMotion) {
+    renderer.render(scene, camera);
+    return;
+  }
 
-    startThreeAnimation();
+  startThreeAnimation();
 }
 
 function onDocumentMouseMove(event) {
-    // Reduced sensitivity - normalize mouse position more gently
-    const normalizedX = (event.clientX - windowHalfX) / window.innerWidth;
-    const normalizedY = (event.clientY - windowHalfY) / window.innerHeight;
-    mouseX = normalizedX * 0.3; // Much smaller multiplier
-    mouseY = normalizedY * 0.3;
+  const normalizedX = (event.clientX - windowHalfX) / window.innerWidth;
+  const normalizedY = (event.clientY - windowHalfY) / window.innerHeight;
+  mouseX = normalizedX * 0.26;
+  mouseY = normalizedY * 0.26;
 }
 
 function onWindowResize() {
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-    
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  windowHalfX = window.innerWidth / 2;
+  windowHalfY = window.innerHeight / 2;
+
+  if (!camera || !renderer) return;
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 
 function animate() {
-    if (!threeIsRunning) return;
-    threeRafId = requestAnimationFrame(animate);
+  if (!threeIsRunning) return;
+  threeRafId = requestAnimationFrame(animate);
 
-    // Smooth interpolation for cursor following
-    targetX += (mouseX - targetX) * 0.05;
-    targetY += (mouseY - targetY) * 0.05;
+  targetX += (mouseX - targetX) * 0.05;
+  targetY += (mouseY - targetY) * 0.05;
 
-    if (geometry) {
-        // Rotate based on cursor position - much slower
-        geometry.rotation.x += targetY * 0.15;
-        geometry.rotation.y += targetX * 0.15;
-        
-        // Subtle continuous rotation
-        geometry.rotation.z += 0.002;
+  if (geometry) {
+    geometry.rotation.x += targetY * 0.14;
+    geometry.rotation.y += targetX * 0.14;
+    geometry.rotation.z += 0.0016;
 
-        // Scale based on cursor distance from center - reduced effect
-        const scale = 1 + (Math.abs(targetX) + Math.abs(targetY)) * 0.1;
-        geometry.scale.set(scale, scale, scale);
-    }
+    const scale = 1 + (Math.abs(targetX) + Math.abs(targetY)) * 0.08;
+    geometry.scale.set(scale, scale, scale);
+  }
 
-    renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
 
 function startThreeAnimation() {
-    if (prefersReducedMotion) return;
-    if (threeIsRunning) return;
-    threeIsRunning = true;
-    animate();
+  if (prefersReducedMotion) return;
+  if (threeIsRunning) return;
+  threeIsRunning = true;
+  animate();
 }
 
 function stopThreeAnimation() {
-    threeIsRunning = false;
-    if (threeRafId != null) {
-        cancelAnimationFrame(threeRafId);
-        threeRafId = null;
-    }
+  threeIsRunning = false;
+  if (threeRafId != null) {
+    cancelAnimationFrame(threeRafId);
+    threeRafId = null;
+  }
 }
 
-// Smooth scroll enhancement
 function initSmoothScroll() {
-    // Add smooth scroll behavior for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                const behavior = prefersReducedMotion ? 'auto' : 'smooth';
-                target.scrollIntoView({ behavior, block: 'start' });
-                history.pushState(null, '', href);
-            }
-        });
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+      target.scrollIntoView({ behavior, block: 'start' });
+      history.pushState(null, '', href);
     });
+  });
 }
 
-// Parallax effect (safe): applied only to elements explicitly marked with data-parallax.
-// This avoids layout/overlap bugs from transforming whole sections.
-function initParallaxElements() {
-    if (prefersReducedMotion) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return; // avoid mobile/touch jank
+function initCopyButtons() {
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const value = btn.getAttribute('data-copy') || '';
+      if (!value) return;
 
-    const items = Array.from(document.querySelectorAll('[data-parallax]'));
-    if (items.length === 0) return;
+      const original = btn.querySelector('span')?.textContent || btn.textContent || '';
 
-    let ticking = false;
+      const setLabel = (text) => {
+        const span = btn.querySelector('span');
+        if (span) span.textContent = text;
+      };
 
-    function update() {
-        const viewportH = window.innerHeight;
-        const viewportCenter = viewportH / 2;
-
-        for (const el of items) {
-            const max = parseFloat(el.getAttribute('data-parallax') || '0');
-            if (!Number.isFinite(max) || max === 0) continue;
-
-            const rect = el.getBoundingClientRect();
-            const elCenter = rect.top + rect.height / 2;
-            const distance = viewportCenter - elCenter;
-            const range = viewportH / 2 + rect.height / 2;
-            const progress = Math.max(-1, Math.min(1, range === 0 ? 0 : distance / range));
-            const y = progress * max;
-
-            el.style.setProperty('--parallax-y', `${y.toFixed(2)}px`);
+      try {
+        await navigator.clipboard.writeText(value);
+        setLabel('Copied');
+      } catch {
+        // Fallback for older browsers / permissions issues
+        const input = document.createElement('input');
+        input.value = value;
+        input.setAttribute('readonly', 'true');
+        input.style.position = 'fixed';
+        input.style.left = '-9999px';
+        document.body.appendChild(input);
+        input.select();
+        try {
+          document.execCommand('copy');
+          setLabel('Copied');
+        } catch {
+          setLabel('Copy failed');
         }
+        document.body.removeChild(input);
+      }
 
-        ticking = false;
-    }
-
-    function onScrollOrResize() {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(update);
-    }
-
-    window.addEventListener('scroll', onScrollOrResize, { passive: true });
-    window.addEventListener('resize', onScrollOrResize, { passive: true });
-    update();
+      window.setTimeout(() => setLabel(original.trim() || 'Copy'), 1100);
+    });
+  });
 }
 
-// Intersection Observer for fade-in animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+function initMagneticButtons() {
+  if (prefersReducedMotion) return;
+  if (isCoarsePointer()) return;
+
+  const items = Array.from(document.querySelectorAll('.magnetic'));
+  if (items.length === 0) return;
+
+  items.forEach((el) => {
+    let raf = null;
+
+    const onMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width - 0.5;
+      const relY = (e.clientY - rect.top) / rect.height - 0.5;
+      const dx = relX * 10;
+      const dy = relY * 8;
+
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`;
+      });
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
+    const onLeave = () => {
+      if (raf) cancelAnimationFrame(raf);
+      el.style.transform = '';
+    };
 
-    // Observe capability cards
-    document.querySelectorAll('.capability-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(card);
-    });
-
-    // Observe subscription cards
-    document.querySelectorAll('.subscription-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(card);
-    });
+    el.addEventListener('mousemove', onMove, { passive: true });
+    el.addEventListener('mouseleave', onLeave, { passive: true });
+  });
 }
 
-// Initialize everything when DOM is ready
+function initGSAP() {
+  if (prefersReducedMotion) return;
+  if (typeof gsap === 'undefined') return;
+
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  // Hero entrance
+  gsap.fromTo(
+    '.hero-content',
+    { opacity: 0, y: 16 },
+    { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }
+  );
+
+  // Scroll reveals
+  const revealEls = gsap.utils.toArray('[data-reveal]');
+  revealEls.forEach((el) => {
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: typeof ScrollTrigger === 'undefined'
+        ? undefined
+        : {
+            trigger: el,
+            start: 'top 86%',
+          },
+    });
+  });
+
+  if (typeof ScrollTrigger === 'undefined') return;
+
+  // Hero parallax orbs (desktop only)
+  if (!isCoarsePointer()) {
+    document.querySelectorAll('[data-parallax-speed]').forEach((el) => {
+      const speed = Number.parseFloat(el.getAttribute('data-parallax-speed') || '0.2');
+      if (!Number.isFinite(speed)) return;
+
+      gsap.to(el, {
+        y: () => -window.innerHeight * speed,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    });
+  }
+
+  // Portrait parallax
+  const portraitImg = document.querySelector('.portrait img');
+  if (portraitImg) {
+    gsap.to(portraitImg, {
+      scale: 1.08,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: portraitImg,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    initThreeJS();
-    initSmoothScroll();
-    initScrollAnimations();
-    
-    // Initialize safe parallax only on non-touch desktop.
-    if (window.innerWidth > 768) initParallaxElements();
+  prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion && typeof gsap !== 'undefined') {
+    document.documentElement.classList.add('js-motion');
+  }
+  initThreeJS();
+  initSmoothScroll();
+  initCopyButtons();
+  initMagneticButtons();
+  initGSAP();
 });
 
-// Handle page visibility to pause/resume animation
 document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        stopThreeAnimation();
-    } else {
-        startThreeAnimation();
-    }
+  if (document.hidden) stopThreeAnimation();
+  else startThreeAnimation();
 });
