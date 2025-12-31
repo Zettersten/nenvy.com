@@ -37,6 +37,27 @@
 }
 
 @media (max-width: 760px) {
+  :root {
+    /* Mobile: no fixed nav bar */
+    --topnav-h: 0px;
+    --anchor-offset: 18px;
+
+    /* More breathing room + stronger display type */
+    --gutter: 1.25rem;
+    --h1: clamp(2.85rem, 10.2vw, 4.6rem);
+    --h2: clamp(2.05rem, 6.8vw, 2.85rem);
+    --lede: clamp(1.05rem, 4.2vw, 1.2rem);
+  }
+
+  body {
+    /* Keep mobile backgrounds calm + classy */
+    background: linear-gradient(180deg, var(--bg), var(--bg2));
+  }
+
+  .topnav {
+    display: none;
+  }
+
   .topnav-inner {
     grid-template-columns: 1fr auto;
   }
@@ -45,13 +66,59 @@
     display: none;
   }
 
-  .nav-toggle {
-    display: inline-flex;
-    justify-self: end;
-  }
-
   .topnav-cta {
     display: none;
+  }
+
+  .philosophy,
+  .subscriptions,
+  .about,
+  .footer {
+    background: transparent;
+  }
+
+  .manifesto,
+  .process-left,
+  .step,
+  .capability-card,
+  .subscription-card,
+  .proof-card {
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+
+  .capability-card:hover,
+  .subscription-card:hover {
+    transform: none;
+  }
+
+  .capabilities-grid,
+  .subscriptions-grid {
+    gap: 1.25rem;
+  }
+
+  .capability-card,
+  .subscription-card {
+    padding: 1.6rem 1.35rem;
+  }
+
+  .section-head::before {
+    opacity: 0.20;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .hero {
+    padding-top: clamp(2.6rem, 10vw, 4.4rem);
+  }
+
+  #canvas {
+    opacity: 0.45;
+  }
+
+  .orb {
+    opacity: 0.38;
+    filter: blur(46px);
   }
 
   .hero-ctas {

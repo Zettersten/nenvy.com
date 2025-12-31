@@ -45,6 +45,28 @@ body {
   line-height: 1.55;
 }
 
+/* Keyboard accessibility */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 999;
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(7, 8, 11, 0.85);
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid rgba(34, 211, 238, 0.75);
+  outline-offset: 3px;
+}
+
 /* Perf: let the browser skip offscreen rendering when possible */
 @supports (content-visibility: auto) {
   section:not(.hero):not(.marquee) {

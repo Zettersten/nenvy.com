@@ -14,11 +14,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Inter+Tight:wght@300..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a class="skip-link" href="#page">Skip to content</a>
     <!-- Top Nav -->
     <header class="topnav" aria-label="Primary">
         <div class="container topnav-inner">
             <a class="brand" href="#hero" aria-label="Nenvy home">
-                <img src="logo-color-light.png" alt="Nenvy" class="brand-mark">
+                <span class="brand-word">Nenvy</span>
             </a>
             <nav class="topnav-links" aria-label="Site">
                 <a href="#capabilities">Services</a>
@@ -26,11 +27,6 @@
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
-                <span class="nav-toggle-lines" aria-hidden="true">
-                    <span></span><span></span>
-                </span>
-            </button>
             <div class="topnav-cta">
                 <a href="#contact" class="btn btn-primary btn-sm">
                     <span>Start a project</span>
@@ -41,37 +37,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Mobile nav panel -->
-    <div class="nav-panel" id="nav-panel" hidden popover="manual" role="dialog" aria-modal="true" aria-label="Menu">
-        <div class="nav-panel-inner" tabindex="-1">
-            <div class="nav-panel-top">
-                <img src="logo-color-light.png" alt="Nenvy" class="nav-panel-logo">
-                <button class="nav-close" type="button" aria-label="Close menu">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-            <nav class="nav-panel-links" aria-label="Mobile">
-                <a href="#philosophy">Philosophy</a>
-                <a href="#process">Process</a>
-                <a href="#capabilities">Services</a>
-                <a href="#subscriptions">Subscriptions</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="nav-panel-cta">
-                <a class="btn btn-primary btn-lg" href="#contact">
-                    <span>Start a project</span>
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <p class="nav-panel-note">Fast response. Clear scope. No hand-offs.</p>
-            </div>
-        </div>
-    </div>
 
     <main id="page">
     <!-- Hero Section -->
@@ -181,7 +146,7 @@
     <!-- Philosophy Section -->
     <section class="philosophy" id="philosophy">
         <div class="container">
-            <div class="section-head">
+            <div class="section-head" data-ghost="Philosophy">
                 <h2 class="section-title">Philosophy</h2>
                 <p class="section-lede">Good design removes friction. Great design creates leverage.</p>
             </div>
@@ -254,7 +219,7 @@
     <!-- Services Section -->
     <section class="capabilities" id="capabilities">
         <div class="container">
-            <div class="section-head">
+            <div class="section-head" data-ghost="Services">
                 <h2 class="section-title">Services</h2>
                 <p class="section-lede">A tight studio for founders and teams that value clarity, systems, and long-term velocity.</p>
             </div>
@@ -308,7 +273,7 @@
     <!-- Product Subscriptions Section -->
     <section class="subscriptions" id="subscriptions">
         <div class="container">
-            <div class="section-head">
+            <div class="section-head" data-ghost="Subscriptions">
                 <h2 class="section-title">Subscriptions</h2>
                 <p class="section-lede">Clear, modern, managed services—priced to remove friction and keep you moving.</p>
             </div>
@@ -383,7 +348,7 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <div class="section-head">
+            <div class="section-head" data-ghost="Contact">
                 <h2 class="section-title">Contact</h2>
                 <p class="section-lede">Tell me what you’re building. I’ll respond quickly with next steps and an honest path forward.</p>
             </div>
@@ -425,13 +390,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="logo-color-light.png" alt="Nenvy LLC" class="footer-logo-image">
-                    </div>
-                    <p class="footer-tagline">"Design is a language for problem solving."</p>
-                </div>
+            <div class="footer-content" aria-label="Footer">
+                <p class="footer-tagline">Design is a language for problem solving.</p>
                 <div class="footer-meta">
                     <p>© 2010–Present · Nenvy LLC</p>
                     <p>Design · Development · Hosting · AI</p>
