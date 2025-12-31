@@ -1,0 +1,54 @@
+## Project: Nenvy static site (award-style)
+
+### Goals
+- **Modern, award-forward design**: bold typography, kinetic motion, premium polish.
+- **Responsive-first UX**: works beautifully from small phones to ultrawide desktops.
+- **Animation engineering**: motion should be intentional, performant, and readable.
+- **Accessible by default**: keyboard nav, focus states, reduced-motion support.
+- **Maintainable**: small modules, clear ownership of styles, minimal global leakage.
+
+### Structure
+- `index.html`: single-page layout + content. Keep it semantic and accessible.
+- `css/`
+  - `main.css`: CSS entrypoint (imports in order)
+  - `tokens.css`: theme variables + type scale
+  - `base.css`: reset + base document styles
+  - `layout.css`: nav + layout skeleton
+  - `components.css`: reusable components (buttons, section head, icons)
+  - `sections.css`: section-specific styling (hero, marquee, process, etc.)
+  - `motion.css`: motion states (e.g. reveal defaults)
+  - `responsive.css`: breakpoints + coarse pointer + reduced motion rules
+- `js/`
+  - `main.js`: entrypoint (initializes features)
+  - `utils/`: tiny helpers (env detection, DOM helpers)
+  - `features/`: interactive features (nav, cursor glow, copy, magnetic, three hero)
+  - `motion/`: GSAP/ScrollTrigger orchestration and text splitting utilities
+
+### Runtime dependencies (global CDN)
+- **GSAP** and **ScrollTrigger** are loaded in `index.html` and accessed as `window.gsap` / `window.ScrollTrigger`.
+- **Three.js** is loaded in `index.html` and accessed as `window.THREE`.
+- These are intentionally *not bundled* to keep the repo simple and static-host-friendly.
+
+### Motion rules
+- Respect `prefers-reduced-motion: reduce`:
+  - No marquee
+  - No cursor glow
+  - No heavy scroll-scrub animations
+- Avoid scroll-jank:
+  - Disable expensive parallax on `(pointer: coarse)`
+  - Use `ScrollTrigger` scrubbing (GSAP) instead of manual scroll handlers
+
+### Coding conventions
+- ES modules only (no global app state objects).
+- Feature modules export `initX()` functions, called from `js/main.js`.
+- Keep selectors stable. Prefer data attributes (e.g. `[data-reveal]`) for motion hooks.
+- When adding a new section:
+  - Add markup in `index.html`
+  - Add section styling in `css/sections.css` (or create a new section file if it grows)
+  - Add motion in `js/motion/gsap-motion.js` behind reduced-motion checks
+
+### Quality bar
+- No long-running loops or scroll handlers outside GSAP/ScrollTrigger.
+- Keep line lengths readable and styles grouped by responsibility.
+- Any “wow” effect must remain legible and performant.
+

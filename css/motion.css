@@ -1,0 +1,9 @@
+/* Motion states + reveal defaults (kept safe if JS/CDNs fail) */
+
+/* Default: visible. If motion is enabled, JS adds .js-motion to <html>. */
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  will-change: transform, opacity;
+}
+
