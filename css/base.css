@@ -1,0 +1,74 @@
+/* Reset + base document */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 700px at 15% 10%, rgba(124, 58, 237, 0.16), transparent 55%),
+    radial-gradient(900px 600px at 85% 15%, rgba(34, 211, 238, 0.12), transparent 60%),
+    radial-gradient(900px 700px at 60% 90%, rgba(163, 255, 18, 0.08), transparent 62%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  color: var(--text);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
+}
+
+/* Perf: let the browser skip offscreen rendering when possible */
+@supports (content-visibility: auto) {
+  section:not(.hero):not(.marquee) {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+  }
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section {
+  scroll-margin-top: var(--anchor-offset);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+  color: rgba(255, 255, 255, 0.95);
+}
+

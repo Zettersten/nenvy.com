@@ -5,25 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nenvy — Design is a language for problem solving.</title>
+    <meta name="description" content="Nenvy is a design-first web studio building modern digital systems—focused on clarity, automation, and brand." />
+    <meta name="theme-color" content="#07080b" />
     <link rel="icon" type="image/png" href="icon-black.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Inter+Tight:wght@300..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Nav -->
+    <header class="topnav" aria-label="Primary">
+        <div class="container topnav-inner">
+            <a class="brand" href="#hero" aria-label="Nenvy home">
+                <img src="logo-color-light.png" alt="Nenvy" class="brand-mark">
+            </a>
+            <nav class="topnav-links" aria-label="Site">
+                <a href="#capabilities">Services</a>
+                <a href="#subscriptions">Subscriptions</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-lines" aria-hidden="true">
+                    <span></span><span></span>
+                </span>
+            </button>
+            <div class="topnav-cta">
+                <a href="#contact" class="btn btn-primary btn-sm">
+                    <span>Start a project</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile nav panel -->
+    <div class="nav-panel" id="nav-panel" hidden popover="manual" role="dialog" aria-modal="true" aria-label="Menu">
+        <div class="nav-panel-inner" tabindex="-1">
+            <div class="nav-panel-top">
+                <img src="logo-color-light.png" alt="Nenvy" class="nav-panel-logo">
+                <button class="nav-close" type="button" aria-label="Close menu">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <nav class="nav-panel-links" aria-label="Mobile">
+                <a href="#philosophy">Philosophy</a>
+                <a href="#process">Process</a>
+                <a href="#capabilities">Services</a>
+                <a href="#subscriptions">Subscriptions</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-panel-cta">
+                <a class="btn btn-primary btn-lg" href="#contact">
+                    <span>Start a project</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <p class="nav-panel-note">Fast response. Clear scope. No hand-offs.</p>
+            </div>
+        </div>
+    </div>
+
+    <main id="page">
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <canvas id="canvas"></canvas>
+        <div class="hero-bg" aria-hidden="true">
+            <div class="orb orb-1" data-parallax-speed="0.18"></div>
+            <div class="orb orb-2" data-parallax-speed="0.28"></div>
+            <div class="orb orb-3" data-parallax-speed="0.12"></div>
+            <div class="gridwash"></div>
+            <div class="noise"></div>
+        </div>
         <div class="hero-content">
-            <div class="logo" id="logo">
-                <img src="logo-black.png" alt="Nenvy" class="logo-image">
+            <div class="kicker">
+                <span class="kicker-pill">Design · Development · Hosting · AI</span>
+                <span class="kicker-meta">Building on the web since 2010</span>
             </div>
-            <h1 class="hero-headline">Design is a language for problem solving.</h1>
-            <p class="hero-subhead">We design, build, and host modern digital systems—focused on clarity, automation, and brand.</p>
+            <h1 class="hero-headline">
+                Design is a language for
+                <span class="accent">problem solving</span>.
+            </h1>
+            <p class="hero-subhead">
+                We design, build, and host modern digital systems—focused on clarity, automation, and brand.
+            </p>
             <div class="hero-ctas">
-                <a href="#contact" class="btn btn-primary">Start a Project</a>
-                <a href="#capabilities" class="btn btn-secondary">View Services</a>
+                <a href="#contact" class="btn btn-primary btn-lg magnetic">
+                    <span>Start a project</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#capabilities" class="btn btn-secondary btn-lg">
+                    <span>View services</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="hero-metrics" aria-label="Highlights">
+                <div class="metric">
+                    <div class="metric-value">Fast</div>
+                    <div class="metric-label">Performance-first builds</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">Clear</div>
+                    <div class="metric-label">Brand & UX with restraint</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">Reliable</div>
+                    <div class="metric-label">Hosting + automation</div>
+                </div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -31,47 +130,177 @@
         </div>
     </section>
 
+    <!-- Kinetic marquee -->
+    <section class="marquee" aria-label="Studio loop">
+        <div class="marquee-inner" data-marquee>
+            <div class="marquee-track">
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+                <span class="dot">•</span>
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+            </div>
+            <div class="marquee-track" aria-hidden="true">
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+                <span class="dot">•</span>
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Philosophy Section -->
     <section class="philosophy" id="philosophy">
         <div class="container">
-            <div class="philosophy-manifesto parallax" data-parallax="18">
-                <p class="manifesto-line">Good design removes friction.</p>
-                <p class="manifesto-line">Great design creates leverage.</p>
+            <div class="section-head">
+                <h2 class="section-title">Philosophy</h2>
+                <p class="section-lede">Good design removes friction. Great design creates leverage.</p>
             </div>
-            <div class="philosophy-support parallax" data-parallax="10">
-                <p>Nenvy is a design-first web studio focused on visual identity, technical precision, and long-term systems.</p>
-                <p>Every engagement starts with brand clarity and ends with solutions that scale.</p>
+            <div class="philosophy-grid">
+                <div class="manifesto" data-reveal>
+                    <p class="manifesto-line">Good design removes friction.</p>
+                    <p class="manifesto-line">Great design creates leverage.</p>
+                </div>
+                <div class="philosophy-support" data-reveal>
+                    <p>Nenvy is a design-first web studio focused on visual identity, technical precision, and long-term systems.</p>
+                    <p>Every engagement starts with brand clarity and ends with solutions that scale.</p>
+                    <div class="philosophy-cta">
+                        <a href="#capabilities" class="btn btn-outline">
+                            <span>How we work</span>
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <a href="#capabilities" class="btn btn-outline">How We Work</a>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process" aria-label="How it works">
+        <div class="container">
+            <div class="process-grid">
+                <div class="process-left">
+                    <p class="process-eyebrow">How we ship</p>
+                    <h2 class="process-title">Clarity → velocity → leverage.</h2>
+                    <p class="process-lede">
+                        A small studio process optimized for outcomes: bold visuals, engineered motion, and systems that stay fast and maintainable.
+                    </p>
+                    <div class="process-badges" aria-label="Principles">
+                        <span class="badge">Performance budgets</span>
+                        <span class="badge">Design tokens</span>
+                        <span class="badge">Reduced-motion ready</span>
+                        <span class="badge">SEO + accessibility</span>
+                    </div>
+                </div>
+                <div class="process-right">
+                    <div class="steps" aria-label="Steps">
+                        <article class="step" data-reveal>
+                            <div class="step-num">01</div>
+                            <h3>Signal</h3>
+                            <p>We extract clarity: positioning, audience, and the one job the page must do.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">02</div>
+                            <h3>System</h3>
+                            <p>We build a cohesive type + spacing + component system so every page feels inevitable.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">03</div>
+                            <h3>Motion</h3>
+                            <p>Scroll choreography, microinteractions, and parallax—engineered for performance and control.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">04</div>
+                            <h3>Ship</h3>
+                            <p>Fast, secure deployment with monitoring and automation so it keeps working while you sleep.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
     <section class="capabilities" id="capabilities">
         <div class="container">
-            <h2 class="section-title">Services</h2>
+            <div class="section-head">
+                <h2 class="section-title">Services</h2>
+                <p class="section-lede">A tight studio for founders and teams that value clarity, systems, and long-term velocity.</p>
+            </div>
             <div class="capabilities-grid">
-                <div class="capability-card">
-                    <div class="capability-icon">D</div>
+                <div class="capability-card" data-reveal>
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     <h3>Design</h3>
                     <p class="capability-description">Brand systems, visual identity, and interface design built to communicate clearly and convert naturally.</p>
                     <p class="capability-quote">Design is not decoration. It's structure.</p>
                 </div>
-                <div class="capability-card">
-                    <div class="capability-icon">C</div>
+                <div class="capability-card" data-reveal>
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M8 7l-4 5 4 5M16 7l4 5-4 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 5l-4 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </div>
                     <h3>Development</h3>
                     <p class="capability-description">Modern web applications engineered for performance, security, and maintainability—without unnecessary complexity.</p>
                     <p class="capability-quote">Clean systems outlast trends.</p>
                 </div>
-                <div class="capability-card">
-                    <div class="capability-icon">A</div>
+                <div class="capability-card" data-reveal>
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M4 14c2-1 4-1 6 0s4 1 6 0 4-1 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            <path d="M4 10c2-1 4-1 6 0s4 1 6 0 4-1 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            <path d="M4 6c2-1 4-1 6 0s4 1 6 0 4-1 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            <path d="M6 18h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </div>
                     <h3>Hosting & Automation</h3>
                     <p class="capability-description">Managed hosting, monitoring, and AI-driven workflows that keep your systems fast, secure, and self-maintaining.</p>
                     <p class="capability-quote">Your website should work while you sleep.</p>
                 </div>
             </div>
             <div class="capabilities-cta">
-                <a href="#contact" class="btn btn-primary">Explore Services</a>
+                <a href="#contact" class="btn btn-primary btn-lg">
+                    <span>Explore services</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
@@ -79,29 +308,32 @@
     <!-- Product Subscriptions Section -->
     <section class="subscriptions" id="subscriptions">
         <div class="container">
-            <h2 class="section-title">Product Subscriptions</h2>
+            <div class="section-head">
+                <h2 class="section-title">Subscriptions</h2>
+                <p class="section-lede">Clear, modern, managed services—priced to remove friction and keep you moving.</p>
+            </div>
             <div class="subscriptions-grid">
-                <div class="subscription-card">
+                <div class="subscription-card" data-reveal>
                     <h3>Website Design & Hosting</h3>
                     <div class="price">$64 <span>/ month</span></div>
                     <p class="subscription-tone">A professional website shouldn't be complicated—or expensive.</p>
                     <ul class="subscription-features">
-                        <li>Custom website design</li>
-                        <li>Fully managed hosting</li>
-                        <li>Security & updates</li>
-                        <li>Performance optimization</li>
-                        <li>Direct access to the builder</li>
+                        <li><span class="check" aria-hidden="true">✓</span>Custom website design</li>
+                        <li><span class="check" aria-hidden="true">✓</span>Fully managed hosting</li>
+                        <li><span class="check" aria-hidden="true">✓</span>Security & updates</li>
+                        <li><span class="check" aria-hidden="true">✓</span>Performance optimization</li>
+                        <li><span class="check" aria-hidden="true">✓</span>Direct access to the builder</li>
                     </ul>
                     <div id="paypal-button-container-P-2LH401466F9693536NFKFLVA"></div>
                     <p class="subscription-note">Cancel anytime</p>
                 </div>
-                <div class="subscription-card">
+                <div class="subscription-card" data-reveal>
                     <h3>AI Services</h3>
                     <div class="price">Custom</div>
                     <p class="subscription-tone">AI-powered workflow automation and internal tools built for real-world use. No demos. No hype.</p>
                     <a href="#contact" class="btn btn-outline">Discuss AI Solutions</a>
                 </div>
-                <div class="subscription-card">
+                <div class="subscription-card" data-reveal>
                     <h3>Technical & Engineering Consulting</h3>
                     <div class="price">Custom</div>
                     <p class="subscription-tone">System architecture, technical strategy, and engineering leadership for teams that need clarity.</p>
@@ -114,8 +346,10 @@
     <!-- Experience & Trust Section -->
     <section class="proof" id="proof">
         <div class="container">
-            <p class="proof-statement parallax" data-parallax="10">Designing and building on the web since 2010.</p>
-            <p class="proof-note">Trusted by founders and teams who value restraint, clarity, and systems that last.</p>
+            <div class="proof-card" data-reveal>
+                <p class="proof-statement">Designing and building on the web since 2010.</p>
+                <p class="proof-note">Trusted by founders and teams who value restraint, clarity, and systems that last.</p>
+            </div>
         </div>
     </section>
 
@@ -124,13 +358,23 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <div class="about-image-placeholder parallax" data-parallax="12"></div>
+                    <div class="portrait" data-reveal>
+                        <img src="erik-zettersten.webp" alt="Erik Zettersten" loading="lazy" decoding="async">
+                    </div>
                 </div>
                 <div class="about-text">
                     <h2 class="section-title">About</h2>
                     <p>Nenvy LLC is run by <strong>Erik Zettersten</strong>, a designer and engineer based in Ashburn, Virginia.</p>
                     <p>One studio.<br>One point of contact.<br>No hand-offs.</p>
                     <p>When you work with Nenvy, you work directly with the person designing and building your system.</p>
+                    <div class="about-signoff">
+                        <a class="btn btn-outline" href="#contact">
+                            <span>Work with Erik</span>
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,7 +383,10 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Contact</h2>
+            <div class="section-head">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-lede">Tell me what you’re building. I’ll respond quickly with next steps and an honest path forward.</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <p class="contact-item">
@@ -156,8 +403,20 @@
                     </p>
                 </div>
                 <div class="contact-ctas">
-                    <a href="#contact" class="btn btn-primary">Start a Project</a>
-                    <a href="mailto:erik@nenvy.com" class="btn btn-outline">Email Erik Directly</a>
+                    <a href="mailto:erik@nenvy.com?subject=Project%20inquiry%20via%20nenvy.com" class="btn btn-primary btn-lg">
+                        <span>Email Erik</span>
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <button class="btn btn-outline btn-lg" type="button" data-copy="erik@nenvy.com" aria-label="Copy email to clipboard">
+                        <span>Copy email</span>
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 8h10v12H8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -169,7 +428,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <img src="logo-black.png" alt="Nenvy LLC" class="footer-logo-image">
+                        <img src="logo-color-light.png" alt="Nenvy LLC" class="footer-logo-image">
                     </div>
                     <p class="footer-tagline">"Design is a language for problem solving."</p>
                 </div>
@@ -180,10 +439,13 @@
             </div>
         </div>
     </footer>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=ATnObauWTeaii36d5zifRVm7VcG5a34SO1BW0vBdMA7vTOD7hGOoPPkcJEb-RBsSuuVI27oWVSTa2SJ5&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
     <script>
       paypal.Buttons({
           style: {

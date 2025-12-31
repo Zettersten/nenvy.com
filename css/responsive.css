@@ -1,0 +1,87 @@
+/* Responsive + platform guards */
+
+@media (max-width: 980px) {
+  .capabilities-grid,
+  .subscriptions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .capabilities-cta {
+    justify-content: stretch;
+  }
+
+  .capabilities-cta .btn {
+    width: 100%;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-left {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .topnav-inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .topnav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    justify-self: end;
+  }
+
+  .topnav-cta {
+    display: none;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (pointer: coarse) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-line { animation: none; }
+  .orb { display: none; }
+  .marquee { display: none; }
+  .cursor-glow { display: none; }
+  .js-motion [data-reveal] { opacity: 1; transform: none; }
+  .btn { transition: none; }
+  .capability-card, .subscription-card { transition: none; }
+}
+

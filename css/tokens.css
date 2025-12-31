@@ -1,0 +1,40 @@
+/* Design tokens (theme + sizing) */
+:root {
+  color-scheme: dark;
+
+  --bg: #07080b;
+  --bg2: #0b0d12;
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+  --quiet: rgba(255, 255, 255, 0.54);
+
+  --accentA: #7c3aed;
+  --accentB: #22d3ee;
+  --accentC: #a3ff12;
+
+  --shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+  --shadow2: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+  --radius: 18px;
+  --radius2: 26px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition: 220ms var(--ease);
+
+  --container: 1120px;
+  --gutter: clamp(1.05rem, 3vw, 2rem);
+  --topnav-h: 70px;
+
+  --section-py: clamp(4.5rem, 8vw, 8.5rem);
+  --section-py-compact: clamp(3.5rem, 6vw, 6rem);
+  --anchor-offset: calc(var(--topnav-h) + 18px);
+
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: "Inter Tight", var(--font-body);
+
+  --h1: clamp(2.55rem, 6.1vw, 6.3rem);
+  --h2: clamp(1.7rem, 3vw, 2.4rem);
+  --lede: clamp(1.05rem, 1.45vw, 1.25rem);
+  --marquee: clamp(1.1rem, 2.2vw, 1.8rem);
+}
+
