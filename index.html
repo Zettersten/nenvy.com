@@ -25,6 +25,11 @@
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </nav>
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-lines" aria-hidden="true">
+                    <span></span><span></span>
+                </span>
+            </button>
             <div class="topnav-cta">
                 <a href="#contact" class="btn btn-primary btn-sm">
                     <span>Start a project</span>
@@ -35,6 +40,37 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile nav panel -->
+    <div class="nav-panel" id="nav-panel" hidden role="dialog" aria-modal="true" aria-label="Menu">
+        <div class="nav-panel-inner" tabindex="-1">
+            <div class="nav-panel-top">
+                <img src="logo-color-light.png" alt="Nenvy" class="nav-panel-logo">
+                <button class="nav-close" type="button" aria-label="Close menu">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <nav class="nav-panel-links" aria-label="Mobile">
+                <a href="#philosophy">Philosophy</a>
+                <a href="#process">Process</a>
+                <a href="#capabilities">Services</a>
+                <a href="#subscriptions">Subscriptions</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-panel-cta">
+                <a class="btn btn-primary btn-lg" href="#contact">
+                    <span>Start a project</span>
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <p class="nav-panel-note">Fast response. Clear scope. No hand-offs.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -92,6 +128,54 @@
         </div>
     </section>
 
+    <!-- Kinetic marquee -->
+    <section class="marquee" aria-label="Studio loop">
+        <div class="marquee-inner" data-marquee>
+            <div class="marquee-track">
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+                <span class="dot">•</span>
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+            </div>
+            <div class="marquee-track" aria-hidden="true">
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+                <span class="dot">•</span>
+                <span>Modern systems</span>
+                <span class="dot">•</span>
+                <span>Brand clarity</span>
+                <span class="dot">•</span>
+                <span>Performance</span>
+                <span class="dot">•</span>
+                <span>Automation</span>
+                <span class="dot">•</span>
+                <span>Design engineering</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Philosophy Section -->
     <section class="philosophy" id="philosophy">
         <div class="container">
@@ -114,6 +198,51 @@
                                 <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process" aria-label="How it works">
+        <div class="container">
+            <div class="process-grid">
+                <div class="process-left">
+                    <p class="process-eyebrow">How we ship</p>
+                    <h2 class="process-title">Clarity → velocity → leverage.</h2>
+                    <p class="process-lede">
+                        A small studio process optimized for outcomes: bold visuals, engineered motion, and systems that stay fast and maintainable.
+                    </p>
+                    <div class="process-badges" aria-label="Principles">
+                        <span class="badge">Performance budgets</span>
+                        <span class="badge">Design tokens</span>
+                        <span class="badge">Reduced-motion ready</span>
+                        <span class="badge">SEO + accessibility</span>
+                    </div>
+                </div>
+                <div class="process-right">
+                    <div class="steps" aria-label="Steps">
+                        <article class="step" data-reveal>
+                            <div class="step-num">01</div>
+                            <h3>Signal</h3>
+                            <p>We extract clarity: positioning, audience, and the one job the page must do.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">02</div>
+                            <h3>System</h3>
+                            <p>We build a cohesive type + spacing + component system so every page feels inevitable.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">03</div>
+                            <h3>Motion</h3>
+                            <p>Scroll choreography, microinteractions, and parallax—engineered for performance and control.</p>
+                        </article>
+                        <article class="step" data-reveal>
+                            <div class="step-num">04</div>
+                            <h3>Ship</h3>
+                            <p>Fast, secure deployment with monitoring and automation so it keeps working while you sleep.</p>
+                        </article>
                     </div>
                 </div>
             </div>
