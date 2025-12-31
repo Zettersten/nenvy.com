@@ -1,6 +1,5 @@
 import { prefersReducedMotion, hasGSAP } from './utils/env.js';
 import { initCursorGlow } from './features/cursor-glow.js';
-import { initMobileNav } from './features/nav.js';
 import { initSmoothScroll } from './features/smooth-scroll.js';
 import { initCopyButtons } from './features/copy.js';
 import { initMagneticButtons } from './features/magnetic.js';
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initCursorGlow({ reducedMotion });
-  initMobileNav({ reducedMotion });
   initSmoothScroll({ reducedMotion });
   initCopyButtons();
   initMagneticButtons({ reducedMotion });
