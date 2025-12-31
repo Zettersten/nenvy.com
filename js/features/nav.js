@@ -6,9 +6,14 @@ export function initMobileNav({ reducedMotion }) {
   const panel = qs('#nav-panel');
   const closeBtn = qs('.nav-close');
   const panelInner = panel ? qs('.nav-panel-inner', panel) : null;
+  const page = qs('#page');
   if (!toggle || !panel || !closeBtn || !panelInner) return;
 
   let lastFocused = null;
+  const supportsPopover = typeof panel.showPopover === 'function';
+
+  // If popover is supported, don't keep it permanently hidden.
+  if (supportsPopover && panel.hasAttribute('hidden')) panel.removeAttribute('hidden');
 
   const focusablesSelector =
     'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -18,9 +23,11 @@ export function initMobileNav({ reducedMotion }) {
 
   const open = () => {
     lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    panel.hidden = false;
+    if (supportsPopover) panel.showPopover();
+    else panel.hidden = false;
     document.body.classList.add('no-scroll');
     toggle.setAttribute('aria-expanded', 'true');
+    if (page && 'inert' in page) page.inert = true;
 
     if (!reducedMotion && hasGSAP()) {
       const gsap = window.gsap;
@@ -45,11 +52,13 @@ export function initMobileNav({ reducedMotion }) {
 
   const close = () => {
     const finalize = () => {
-      panel.hidden = true;
+      if (supportsPopover) panel.hidePopover();
+      else panel.hidden = true;
       panel.style.opacity = '';
       panel.style.visibility = '';
       document.body.classList.remove('no-scroll');
       toggle.setAttribute('aria-expanded', 'false');
+      if (page && 'inert' in page) page.inert = false;
       if (lastFocused) lastFocused.focus();
     };
 
@@ -64,7 +73,8 @@ export function initMobileNav({ reducedMotion }) {
   };
 
   toggle.addEventListener('click', () => {
-    if (panel.hidden) open();
+    const isOpen = supportsPopover ? panel.matches(':popover-open') : !panel.hidden;
+    if (!isOpen) open();
     else close();
   });
 
@@ -76,12 +86,23 @@ export function initMobileNav({ reducedMotion }) {
     if (!panelInner.contains(target)) close();
   });
 
+  // Keep state consistent when popover is closed by browser features.
+  if (supportsPopover) {
+    panel.addEventListener('toggle', () => {
+      const isOpen = panel.matches(':popover-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      document.body.classList.toggle('no-scroll', isOpen);
+      if (page && 'inert' in page) page.inert = isOpen;
+    });
+  }
+
   qsa('a[href^="#"]', panel).forEach((a) => {
     a.addEventListener('click', () => close());
   });
 
   document.addEventListener('keydown', (e) => {
-    if (panel.hidden) return;
+    const isOpen = supportsPopover ? panel.matches(':popover-open') : !panel.hidden;
+    if (!isOpen) return;
 
     if (e.key === 'Escape') {
       e.preventDefault();

@@ -1,9 +1,11 @@
-/* Main stylesheet entry (ordered for predictable cascade) */
-@import url("./tokens.css");
-@import url("./base.css");
-@import url("./layout.css");
-@import url("./components.css");
-@import url("./sections.css");
-@import url("./motion.css");
-@import url("./responsive.css");
+/* Main stylesheet entry (bleeding-edge: cascade layers + ordered imports) */
+@layer tokens, base, layout, components, sections, motion, responsive;
+
+@import url("./tokens.css") layer(tokens);
+@import url("./base.css") layer(base);
+@import url("./layout.css") layer(layout);
+@import url("./components.css") layer(components);
+@import url("./sections.css") layer(sections);
+@import url("./motion.css") layer(motion);
+@import url("./responsive.css") layer(responsive);
 

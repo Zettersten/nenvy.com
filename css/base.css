@@ -45,6 +45,14 @@ body {
   line-height: 1.55;
 }
 
+/* Perf: let the browser skip offscreen rendering when possible */
+@supports (content-visibility: auto) {
+  section:not(.hero):not(.marquee) {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+  }
+}
+
 .container {
   max-width: var(--container);
   margin: 0 auto;

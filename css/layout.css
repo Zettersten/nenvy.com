@@ -97,10 +97,33 @@
   z-index: 80;
   background: rgba(7, 8, 11, 0.55);
   backdrop-filter: blur(16px);
+  border: 0;
+  padding: 0;
 }
 
 .nav-panel[hidden] {
   display: none;
+}
+
+/* Popover API (progressive enhancement) */
+@supports selector(:popover-open) {
+  .nav-panel {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 220ms var(--ease), transform 420ms var(--ease);
+  }
+
+  .nav-panel:popover-open {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @starting-style {
+    .nav-panel:popover-open {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
 }
 
 .nav-panel-inner {
