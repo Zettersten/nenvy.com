@@ -13,7 +13,10 @@ export function initMobileNav({ reducedMotion }) {
   const supportsPopover = typeof panel.showPopover === 'function';
 
   // If popover is supported, don't keep it permanently hidden.
+  // (Browsers with popover support will keep it closed until showPopover()).
   if (supportsPopover && panel.hasAttribute('hidden')) panel.removeAttribute('hidden');
+  // If popover is not supported, ensure it starts hidden.
+  if (!supportsPopover) panel.hidden = true;
 
   const focusablesSelector =
     'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
