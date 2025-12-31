@@ -37,6 +37,9 @@
 - Avoid scroll-jank:
   - Disable expensive parallax on `(pointer: coarse)`
   - Use `ScrollTrigger` scrubbing (GSAP) instead of manual scroll handlers
+- Progressive enhancement:
+  - Use **CSS view/scroll timelines** when supported as a JS/CDN-failure fallback.
+  - Keep GSAP as the primary engine for consistent cross-browser motion.
 
 ### Coding conventions
 - ES modules only (no global app state objects).

@@ -11,6 +11,45 @@
   overflow: hidden;
 }
 
+/* Bleeding edge CSS scroll-linked hero drift (progressive enhancement).
+   Only active when GSAP isn't running motion (no .js-motion). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (view-timeline-name: --t) and (animation-timeline: --t) and (animation-range: entry 0% exit 0%) {
+    .hero {
+      view-timeline-name: --hero;
+      view-timeline-axis: block;
+    }
+
+    html:not(.js-motion) .orb {
+      animation-name: orbDrift;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: entry 0% exit 100%;
+    }
+
+    html:not(.js-motion) .orb-1 { animation-duration: 1s; }
+    html:not(.js-motion) .orb-2 { animation-duration: 1s; }
+    html:not(.js-motion) .orb-3 { animation-duration: 1s; }
+
+    @keyframes orbDrift {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(0, -140px, 0); }
+    }
+
+    html:not(.js-motion) .gridwash {
+      animation: gridFade 1s linear both;
+      animation-timeline: --hero;
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes gridFade {
+      from { opacity: 0.30; }
+      to { opacity: 0.10; }
+    }
+  }
+}
+
 #canvas {
   position: absolute;
   inset: 0;

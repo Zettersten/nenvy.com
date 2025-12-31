@@ -7,3 +7,25 @@
   will-change: transform, opacity;
 }
 
+/* Bleeding edge CSS-only reveals (progressive enhancement)
+   Runs ONLY when GSAP isn't driving reveals (no .js-motion). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) and (animation-range: entry 0% cover 0%) {
+    html:not(.js-motion) [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      animation-name: revealIn;
+      animation-duration: 1s;
+      animation-timing-function: var(--ease);
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+
+    @keyframes revealIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+}
+
