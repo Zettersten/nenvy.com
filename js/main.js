@@ -6,12 +6,14 @@ import { initMagneticButtons } from './features/magnetic.js';
 import { initThreeHero } from './features/three-hero.js';
 import { initMobileNav } from './features/nav.js';
 import { initPaypalSubscribe } from './features/paypal-subscribe.js';
+import { initPreloaderShader } from './features/preloader-shader.js';
 import { initMotion } from './motion/gsap-motion.js';
 
 document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
   const reducedMotion = prefersReducedMotion();
+  const preloader = initPreloaderShader({ reducedMotion });
 
   // Only hide reveals when GSAP is present; otherwise keep content visible.
   if (!reducedMotion && hasGSAP()) {
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startHeavy = () => {
     const three = initThreeHero({ reducedMotion });
     initMotion({ reducedMotion });
+    preloader.reveal();
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) three.stop();
