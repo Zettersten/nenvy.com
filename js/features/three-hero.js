@@ -1,9 +1,131 @@
-// 2D-only implementation (robust vs WebGL context loss)
+// Tubes cursor: match the threejs-components demo 1:1 (WebGL + bloom),
+// with a 2D fallback if WebGL/module init fails.
 
 function randomColors(count) {
   return new Array(count)
     .fill(0)
     .map(() => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`);
+}
+
+const TUBES_CURSOR_URL =
+  'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js';
+
+function canUseWebGL(canvas) {
+  try {
+    return Boolean(
+      canvas.getContext('webgl2', { alpha: true }) || canvas.getContext('webgl', { alpha: true })
+    );
+  } catch {
+    return false;
+  }
+}
+
+function demoDefaults() {
+  // These defaults are pulled from the Framer demo bundle.
+  return {
+    bloom: {
+      threshold: 0,
+      strength: 1.5,
+      radius: 0.5,
+    },
+    tubes: {
+      count: 8,
+      colors: ['#f967fb', '#53bc28', '#6958d5'],
+      lights: {
+        intensity: 200,
+        colors: ['#83f36e', '#fe8a2e', '#ff008a', '#60aed5'],
+      },
+      material: {
+        metalness: 1,
+        roughness: 0.25,
+      },
+      lerp: 0.5,
+      noise: 0.05,
+    },
+    sleepRadiusX: 300,
+    sleepRadiusY: 150,
+    sleepTimeScale1: 1,
+    sleepTimeScale2: 2,
+  };
+}
+
+function initTubesWebGL({ canvas, hero, preloader }) {
+  let app = null;
+  let inView = true;
+  let initInFlight = null;
+
+  const onClick = (event) => {
+    const el = event.target;
+    if (el && (el.closest('a') || el.closest('button'))) return;
+    if (!app?.tubes) return;
+    app.tubes.setColors(randomColors(3));
+    app.tubes.setLightsColors(randomColors(4));
+  };
+
+  if (hero) hero.addEventListener('pointerup', onClick, { passive: true });
+
+  const ensureApp = async () => {
+    if (app) return app;
+    if (initInFlight) return initInFlight;
+
+    initInFlight = (async () => {
+      const mod = await import(TUBES_CURSOR_URL);
+      const TubesCursor = mod?.default;
+      if (typeof TubesCursor !== 'function') {
+        throw new Error('TubesCursor module did not export a default function.');
+      }
+
+      const opts = demoDefaults();
+      app = TubesCursor(canvas, opts);
+
+      // Reveal preloader shortly after successful init (keeps perceived perf snappy).
+      window.setTimeout(() => {
+        if (preloader && typeof preloader.reveal === 'function') preloader.reveal();
+      }, 450);
+
+      return app;
+    })()
+      .catch((err) => {
+        // If WebGL init fails, allow caller to fall back to 2D.
+        app = null;
+        throw err;
+      })
+      .finally(() => {
+        initInFlight = null;
+      });
+
+    return initInFlight;
+  };
+
+  const start = () => {
+    if (!inView) return;
+    // Fire-and-forget: rendering is handled internally by the library.
+    void ensureApp();
+  };
+
+  const stop = () => {
+    // Library exposes dispose() (matches Framer bundle). We'll recreate on start.
+    try {
+      app?.dispose?.();
+    } finally {
+      app = null;
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        inView = Boolean(entry && entry.isIntersecting);
+        if (!inView) stop();
+        else start();
+      },
+      { rootMargin: '200px 0px' }
+    );
+    io.observe(canvas);
+  }
+
+  return { start, stop };
 }
 
 function initTubes2D({ canvas, hero, preloader }) {
@@ -229,8 +351,25 @@ export function initThreeHero({ reducedMotion, preloader } = {}) {
   if (!canvas) return { stop() {}, start() {} };
   if (reducedMotion) return { stop() {}, start() {} };
 
-  // Always use 2D to avoid WebGL/Metal context loss issues.
-  // This removes the ANGLE/Metal spam and keeps tubes working everywhere.
-  return initTubes2D({ canvas, hero, preloader });
+  // Avoid heavy cursor effects on coarse pointers.
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+    return { stop() {}, start() {} };
+  }
+
+  // Prefer the 1:1 WebGL demo implementation, but fall back to 2D if it fails.
+  if (canUseWebGL(canvas)) {
+    try {
+      const webgl = initTubesWebGL({ canvas, hero, preloader });
+      // Kick off immediately (main.js doesn't call start() initially).
+      webgl.start();
+      return webgl;
+    } catch {
+      // If the library throws synchronously (rare), fall back.
+    }
+  }
+
+  const twoD = initTubes2D({ canvas, hero, preloader });
+  twoD.start();
+  return twoD;
 }
 
