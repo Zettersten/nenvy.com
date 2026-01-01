@@ -109,7 +109,8 @@
   }
 
   .hero {
-    padding-top: clamp(2.6rem, 10vw, 4.4rem);
+    /* Mobile hero must clear the fixed top nav */
+    padding-top: calc(var(--topnav-h) + clamp(2.6rem, 10vw, 4.4rem));
   }
 
   #canvas {
