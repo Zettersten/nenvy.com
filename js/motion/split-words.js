@@ -24,7 +24,14 @@ export function splitWords(el) {
         }
         child.parentNode?.replaceChild(frag, child);
       } else if (child.nodeType === Node.ELEMENT_NODE) {
-        walk(child);
+        // Some elements (like gradient-clipped text) must remain a single text run.
+        // Treat them as an atomic "word" so animations still work without breaking paint.
+        const elChild = /** @type {HTMLElement} */ (child);
+        if (elChild.matches?.('.accent, [data-split-atomic]')) {
+          elChild.classList.add('w');
+          continue;
+        }
+        walk(elChild);
       }
     }
   };

@@ -13,8 +13,20 @@ function initTubes2D({ canvas, hero, preloader }) {
     return { stop() {}, start() {} };
   }
 
-  let tubeColors = ['#f967fb', '#53bc28', '#6958d5'];
-  let lightColors = ['#83f36e', '#fe8a2e', '#ff008a', '#60aed5'];
+  // Keep config shape similar to the TubesCursor reference snippet.
+  const config = {
+    tubes: {
+      colors: ['#f967fb', '#53bc28', '#6958d5'],
+      lights: {
+        intensity: 200,
+        colors: ['#83f36e', '#fe8a2e', '#ff008a', '#60aed5'],
+      },
+    },
+  };
+
+  let tubeColors = [...config.tubes.colors];
+  let lightColors = [...config.tubes.lights.colors];
+  let lightIntensity = config.tubes.lights.intensity;
 
   // Inspired by the behavior docs: multiple tubes, pulsing "lights", click randomizes.
   // Counts are tuned down slightly for perf.
@@ -30,7 +42,8 @@ function initTubes2D({ canvas, hero, preloader }) {
     const a = (i / Math.max(1, tubeCount)) * Math.PI * 2;
     const r = baseRadius * (0.55 + (i / tubeCount) * 0.65);
     const stiffness = baseStiffness + (i / tubeCount) * 0.06;
-    const lw = 1.75 + (1 - i / tubeCount) * 1.25;
+    // Thicker tubes to better match the reference TubesCursor look.
+    const lw = 3.4 + (1 - i / tubeCount) * 2.6;
     return {
       pts,
       head: { x: headBase.x, y: headBase.y },
@@ -62,6 +75,8 @@ function initTubes2D({ canvas, hero, preloader }) {
     if (el && (el.closest('a') || el.closest('button'))) return;
     tubeColors = randomColors(3);
     lightColors = randomColors(4);
+    // Keep the same overall brightness, but re-randomize palette.
+    lightIntensity = config.tubes.lights.intensity;
   };
 
   window.addEventListener('resize', resize, { passive: true });
@@ -87,7 +102,8 @@ function initTubes2D({ canvas, hero, preloader }) {
     g.addColorStop(1.0, `#00000000`);
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
-    ctx.globalAlpha = 0.55 * intensity;
+    const intensityScale = Math.max(0.4, Math.min(1.6, (lightIntensity || 200) / 200));
+    ctx.globalAlpha = 0.55 * intensity * intensityScale;
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -99,11 +115,11 @@ function initTubes2D({ canvas, hero, preloader }) {
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
     ctx.shadowColor = color;
-    ctx.shadowBlur = 18;
+    ctx.shadowBlur = 22;
 
     // Soft under-stroke
     ctx.globalAlpha = 0.22;
-    ctx.lineWidth = trail.lw * 2.2;
+    ctx.lineWidth = trail.lw * 2.35;
     ctx.strokeStyle = color;
     ctx.beginPath();
     trail.pts.forEach((p, idx) => {
@@ -114,7 +130,7 @@ function initTubes2D({ canvas, hero, preloader }) {
 
     // Bright core
     ctx.globalAlpha = 0.55;
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 10;
     ctx.lineWidth = trail.lw;
     ctx.beginPath();
     trail.pts.forEach((p, idx) => {
