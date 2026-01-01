@@ -1,12 +1,4 @@
-import { isCoarsePointer } from '../utils/env.js';
-
-function clamp01(v) {
-  return Math.max(0, Math.min(1, v));
-}
-
-function easeInOutCubic(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
+// 2D-only implementation (robust vs WebGL context loss)
 
 function randomColors(count) {
   return new Array(count)
@@ -22,21 +14,35 @@ function initTubes2D({ canvas, hero, preloader }) {
   }
 
   let tubeColors = ['#f967fb', '#53bc28', '#6958d5'];
-  const offsets = [
-    { x: 0.0, y: 0.0, stiffness: 0.18, lw: 2.8 },
-    { x: -20, y: 11, stiffness: 0.15, lw: 2.4 },
-    { x: 16, y: -12, stiffness: 0.13, lw: 2.2 },
-  ];
+  let lightColors = ['#83f36e', '#fe8a2e', '#ff008a', '#60aed5'];
+
+  // Inspired by the behavior docs: multiple tubes, pulsing "lights", click randomizes.
+  // Counts are tuned down slightly for perf.
+  const tubeCount = 10; // docs mention 12
+  const baseRadius = 26;
+  const baseStiffness = 0.12; // "smoothness" feel
 
   const worldTarget = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.45 };
   const headBase = { x: worldTarget.x, y: worldTarget.y };
 
   const makeTrail = (i) => {
     const pts = new Array(26).fill(0).map(() => ({ x: headBase.x, y: headBase.y }));
-    return { pts, head: { x: headBase.x, y: headBase.y }, desired: { x: headBase.x, y: headBase.y }, ...offsets[i] };
+    const a = (i / Math.max(1, tubeCount)) * Math.PI * 2;
+    const r = baseRadius * (0.55 + (i / tubeCount) * 0.65);
+    const stiffness = baseStiffness + (i / tubeCount) * 0.06;
+    const lw = 1.75 + (1 - i / tubeCount) * 1.25;
+    return {
+      pts,
+      head: { x: headBase.x, y: headBase.y },
+      desired: { x: headBase.x, y: headBase.y },
+      x: Math.cos(a) * r,
+      y: Math.sin(a) * r,
+      stiffness,
+      lw,
+    };
   };
 
-  const trails = [makeTrail(0), makeTrail(1), makeTrail(2)];
+  const trails = Array.from({ length: tubeCount }, (_, i) => makeTrail(i));
 
   let dpr = 1;
   const resize = () => {
@@ -55,6 +61,7 @@ function initTubes2D({ canvas, hero, preloader }) {
     const el = event.target;
     if (el && (el.closest('a') || el.closest('button'))) return;
     tubeColors = randomColors(3);
+    lightColors = randomColors(4);
   };
 
   window.addEventListener('resize', resize, { passive: true });
@@ -68,6 +75,25 @@ function initTubes2D({ canvas, hero, preloader }) {
   let inView = true;
   let lastT = performance.now();
   let revealed = false;
+
+  const drawLightHalo = (t, intensity) => {
+    const x = headBase.x;
+    const y = headBase.y;
+    const r = 220;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0.0, `${lightColors[0]}1a`);
+    g.addColorStop(0.35, `${lightColors[1]}10`);
+    g.addColorStop(0.7, `${lightColors[2]}08`);
+    g.addColorStop(1.0, `#00000000`);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = 0.55 * intensity;
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
 
   const drawTrail = (trail, color) => {
     ctx.save();
@@ -126,9 +152,14 @@ function initTubes2D({ canvas, hero, preloader }) {
     headBase.x += (worldTarget.x - headBase.x) * lerpAmt;
     headBase.y += (worldTarget.y - headBase.y) * lerpAmt;
 
-    trails.forEach((t) => {
+    const tt = now * 0.002;
+    const intensity = 0.75 + Math.sin(tt) * 0.25;
+
+    trails.forEach((t, idx) => {
+      // Subtle breathing motion.
+      const wobble = Math.sin(tt + idx) * 2.0;
       t.desired.x = headBase.x + t.x;
-      t.desired.y = headBase.y + t.y;
+      t.desired.y = headBase.y + t.y + wobble;
       t.head.x += (t.desired.x - t.head.x) * t.stiffness;
       t.head.y += (t.desired.y - t.head.y) * t.stiffness;
       for (let i = t.pts.length - 1; i >= 1; i--) {
@@ -140,9 +171,8 @@ function initTubes2D({ canvas, hero, preloader }) {
     });
 
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    drawTrail(trails[0], tubeColors[0]);
-    drawTrail(trails[1], tubeColors[1]);
-    drawTrail(trails[2], tubeColors[2]);
+    drawLightHalo(tt, intensity);
+    trails.forEach((t, i) => drawTrail(t, tubeColors[i % tubeColors.length]));
   };
 
   const start = () => {
