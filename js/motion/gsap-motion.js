@@ -2,7 +2,7 @@ import { qsa, qs } from '../utils/dom.js';
 import { hasGSAP, hasScrollTrigger, isCoarsePointer } from '../utils/env.js';
 import { splitWords } from './split-words.js';
 
-export function initMotion({ reducedMotion }) {
+export function initMotion({ reducedMotion, preloader }) {
   if (reducedMotion) return;
   if (!hasGSAP()) return;
 
@@ -12,16 +12,33 @@ export function initMotion({ reducedMotion }) {
     gsap.registerPlugin(window.ScrollTrigger);
   }
 
-  // Hero: word-level headline + staged UI entrance
+  // Hero: word-level headline + kicker + staged UI entrance
   const headline = qs('.hero-headline');
   if (headline && !headline.dataset.split) {
     splitWords(headline);
     headline.dataset.split = 'true';
   }
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const kicker = qs('.kicker-meta');
+  if (kicker && !kicker.dataset.split) {
+    splitWords(kicker);
+    kicker.dataset.split = 'true';
+  }
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, paused: true });
   tl.fromTo('.hero-content', { opacity: 0 }, { opacity: 1, duration: 0.3 });
-  tl.from('.kicker', { opacity: 0, y: 14, duration: 0.7 }, '<');
+  tl.from(
+    '.kicker-meta .w',
+    {
+      opacity: 0,
+      y: 18,
+      rotateX: 45,
+      transformOrigin: '50% 100%',
+      duration: 0.75,
+      stagger: 0.025,
+    },
+    '<'
+  );
   tl.from(
     '.hero-headline .w',
     {
@@ -32,11 +49,19 @@ export function initMotion({ reducedMotion }) {
       duration: 1.0,
       stagger: 0.018,
     },
-    '-=0.25'
+    '-=0.45'
   );
   tl.from('.hero-subhead', { opacity: 0, y: 12, duration: 0.7 }, '-=0.55');
   tl.from('.hero-ctas .btn', { opacity: 0, y: 10, duration: 0.65, stagger: 0.08 }, '-=0.55');
-  tl.from('.hero-metrics .metric', { opacity: 0, y: 10, duration: 0.65, stagger: 0.06 }, '-=0.5');
+
+  // Wait for preloader, then start hero animations
+  if (preloader?.reveal) {
+    preloader.reveal().then(() => {
+      gsap.delayedCall(0.3, () => tl.play());
+    });
+  } else {
+    tl.play();
+  }
 
   // Scroll reveals
   qsa('[data-reveal]').forEach((el) => {

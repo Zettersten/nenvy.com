@@ -60,40 +60,22 @@
 </head>
 <body>
     <a class="skip-link" href="#page">Skip to content</a>
-    <!-- Preloader (shader-enhanced via Three.js, CSS fallback) -->
+    <!-- Preloader -->
     <div class="preloader" data-preloader aria-hidden="true">
-        <div class="preloader-ui" aria-hidden="true">
-            <div class="preloader-mark">Nenvy</div>
-            <div class="preloader-sub">Loading</div>
-            <div class="preloader-bar"><span></span></div>
-        </div>
+        <img src="icon-color-light.png" alt="" class="preloader-icon">
     </div>
     <!-- Top Nav -->
     <header class="topnav" aria-label="Primary">
         <div class="container topnav-inner">
             <a class="brand" href="#hero" aria-label="Nenvy home">
-                <span class="brand-word">Nenvy</span>
+                <img src="icon-black.png" alt="Nenvy" class="brand-icon">
             </a>
-            <nav class="topnav-links" aria-label="Site">
-                <a href="#capabilities">Services</a>
-                <a href="#subscriptions">Subscriptions</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="topnav-cta">
-                <a href="#contact" class="btn btn-primary btn-sm">
-                    <span>Start a project</span>
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <button class="nav-toggle btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="nav-panel" aria-expanded="false">
-                    <span>Menu</span>
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
+            <button class="nav-toggle btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="nav-panel" aria-expanded="false">
+                <span>Menu</span>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -101,7 +83,7 @@
         <div class="nav-panel-inner">
             <div class="nav-panel-top">
                 <a class="brand" href="#hero" aria-label="Nenvy home">
-                    <span class="brand-word">Nenvy</span>
+                    <img src="icon-black.png" alt="Nenvy" class="brand-icon">
                 </a>
                 <button class="nav-close btn btn-outline btn-sm" type="button">
                     <span>Close</span>
@@ -140,7 +122,6 @@
         <canvas id="canvas" aria-hidden="true"></canvas>
         <div class="hero-content">
             <div class="kicker">
-                <span class="kicker-pill">Design · Development · Hosting · AI</span>
                 <span class="kicker-meta">Building on the web since 2010</span>
             </div>
             <h1 class="hero-headline">
@@ -161,20 +142,6 @@
                         <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
                     </svg>
                 </a>
-            </div>
-            <div class="hero-metrics" aria-label="Highlights">
-                <div class="metric">
-                    <div class="metric-value">Fast</div>
-                    <div class="metric-label">Performance-first builds</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">Clear</div>
-                    <div class="metric-label">Brand & UX with restraint</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">Reliable</div>
-                    <div class="metric-label">Hosting + automation</div>
-                </div>
             </div>
         </div>
         <div class="scroll-indicator" aria-hidden="true">

@@ -54,21 +54,6 @@
     background: linear-gradient(180deg, var(--bg), var(--bg2));
   }
 
-  .topnav-inner {
-    grid-template-columns: 1fr auto;
-  }
-
-  .topnav-links {
-    display: none;
-  }
-
-  .topnav-cta .btn-primary {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: inline-flex;
-  }
 
   .philosophy,
   .subscriptions,

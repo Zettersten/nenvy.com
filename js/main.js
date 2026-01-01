@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // (GSAP/Three are loaded as deferred classic scripts.)
   const startHeavy = () => {
     const three = initThreeHero({ reducedMotion, preloader });
-    initMotion({ reducedMotion });
+    initMotion({ reducedMotion, preloader });
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) three.stop();
