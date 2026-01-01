@@ -13,12 +13,18 @@ export function initThreeHero({ reducedMotion }) {
   const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 60);
   camera.position.set(0, 0, 9);
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true,
-    antialias: true,
-    powerPreference: 'high-performance',
-  });
+  let renderer = null;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+  } catch (e) {
+    // WebGL context creation can fail (GPU limits, privacy modes, etc.).
+    return { stop() {}, start() {} };
+  }
   renderer.setClearColor(0x000000, 0);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));

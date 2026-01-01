@@ -16,14 +16,20 @@ export function initPreloaderShader({ reducedMotion }) {
   const root = document.documentElement;
   root.classList.add('is-loading');
 
+  let resolveDone = null;
+  const donePromise = new Promise((resolve) => {
+    resolveDone = resolve;
+  });
+
   // Reduced motion: keep it simple and get out fast.
   if (reducedMotion) {
     queueMicrotask(() => {
       wrap.classList.add('is-done');
       root.classList.remove('is-loading');
       window.setTimeout(() => wrap.remove(), 700);
+      if (resolveDone) resolveDone();
     });
-    return { reveal() {} };
+    return { reveal: () => donePromise };
   }
 
   const canRunShader = hasThree();
@@ -72,12 +78,18 @@ export function initPreloaderShader({ reducedMotion }) {
     root.classList.remove('is-loading');
     window.setTimeout(() => wrap.remove(), 700);
     teardown();
+    if (resolveDone) resolveDone();
   };
 
   if (!canRunShader) {
     // CSS-only fallback: fade out when the page is ready.
     window.addEventListener('load', () => finish(), { once: true });
-    return { reveal: () => finish() };
+    return {
+      reveal: () => {
+        finish();
+        return donePromise;
+      },
+    };
   }
 
   scene = new THREE.Scene();
@@ -210,6 +222,11 @@ export function initPreloaderShader({ reducedMotion }) {
   window.setTimeout(() => reveal(), 4200);
   window.addEventListener('load', () => reveal(), { once: true });
 
-  return { reveal };
+  return {
+    reveal: () => {
+      reveal();
+      return donePromise;
+    },
+  };
 }
 
