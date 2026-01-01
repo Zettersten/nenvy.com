@@ -198,27 +198,3 @@ html.is-loading body {
   text-wrap: pretty;
 }
 
-/* Cursor glow (desktop only via JS) */
-.cursor-glow {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 560px;
-  height: 560px;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 6;
-  opacity: 0;
-  transform: translate3d(-1000px, -1000px, 0);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.16), transparent 60%),
-    radial-gradient(circle at 65% 40%, rgba(124, 58, 237, 0.14), transparent 58%);
-  filter: blur(26px);
-  mix-blend-mode: screen;
-  transition: opacity 240ms var(--ease);
-}
-
-.js .cursor-glow {
-  opacity: 1;
-}
-

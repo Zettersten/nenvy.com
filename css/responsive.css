@@ -137,9 +137,6 @@
 }
 
 @media (pointer: coarse) {
-  .cursor-glow {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -147,7 +144,6 @@
   .scroll-line { animation: none; }
   .orb { display: none; }
   .marquee { display: none; }
-  .cursor-glow { display: none; }
   .js-motion [data-reveal] { opacity: 1; transform: none; }
   .btn { transition: none; }
   .capability-card, .subscription-card { transition: none; }
