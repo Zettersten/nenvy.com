@@ -81,41 +81,7 @@ export function initMotion({ reducedMotion }) {
     });
   }
 
-  // Hero parallax orbs (desktop only)
-  if (!isCoarsePointer()) {
-    qsa('[data-parallax-speed]').forEach((el) => {
-      const speed = Number.parseFloat(el.getAttribute('data-parallax-speed') || '0.2');
-      if (!Number.isFinite(speed)) return;
-
-      gsap.to(el, {
-        y: () => -window.innerHeight * speed,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
-    });
-  }
-
-  // Portrait parallax
-  const portraitImg = qs('.portrait img');
-  if (portraitImg) {
-    gsap.to(portraitImg, {
-      scale: 1.08,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: portraitImg,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-  }
-
-  // Process: active step state + micro depth on scroll
+  // Process: active step state
   const steps = qsa('.step');
   steps.forEach((step) => {
     ScrollTrigger.create({
@@ -127,21 +93,6 @@ export function initMotion({ reducedMotion }) {
       onLeave: () => step.classList.remove('is-active'),
       onLeaveBack: () => step.classList.remove('is-active'),
     });
-
-    gsap.fromTo(
-      step,
-      { rotateX: 6, transformPerspective: 900, transformOrigin: '50% 50%' },
-      {
-        rotateX: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: step,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
   });
 }
 
