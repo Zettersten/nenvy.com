@@ -94,7 +94,24 @@ export function initPreloaderShader({ reducedMotion }) {
 
   scene = new THREE.Scene();
   camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
+    // Some environments create the renderer object but without a usable context.
+    if (!renderer || typeof renderer.getContext !== 'function' || !renderer.getContext()) {
+      throw new Error('WebGL context unavailable');
+    }
+  } catch (e) {
+    // WebGL context creation can fail (GPU limits, privacy modes, etc.).
+    // Fall back to CSS preloader and keep the page functional.
+    canvas.style.display = 'none';
+    queueMicrotask(() => finish());
+    return {
+      reveal: () => {
+        finish();
+        return donePromise;
+      },
+    };
+  }
 
   const uniforms = {
     u_time: { value: 0 },
