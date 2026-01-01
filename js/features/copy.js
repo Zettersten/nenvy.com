@@ -6,16 +6,25 @@ export function initCopyButtons() {
       const value = btn.getAttribute('data-copy') || '';
       if (!value) return;
 
-      const original = btn.querySelector('span')?.textContent || btn.textContent || '';
+      const labelEl = btn.querySelector('[data-copy-label]');
+      const liveEl = btn.querySelector('[data-copy-live]');
+      const original = labelEl?.textContent || btn.querySelector('span')?.textContent || btn.textContent || '';
 
       const setLabel = (text) => {
-        const span = btn.querySelector('span');
-        if (span) span.textContent = text;
+        if (labelEl) labelEl.textContent = text;
+      };
+
+      const announce = (text) => {
+        if (!liveEl) return;
+        // Clear first so repeated messages are announced reliably.
+        liveEl.textContent = '';
+        window.setTimeout(() => (liveEl.textContent = text), 10);
       };
 
       try {
         await navigator.clipboard.writeText(value);
         setLabel('Copied');
+        announce('Copied to clipboard');
       } catch {
         const input = document.createElement('input');
         input.value = value;
@@ -27,8 +36,10 @@ export function initCopyButtons() {
         try {
           document.execCommand('copy');
           setLabel('Copied');
+          announce('Copied to clipboard');
         } catch {
           setLabel('Copy failed');
+          announce('Copy failed');
         }
         document.body.removeChild(input);
       }
