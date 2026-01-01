@@ -4,6 +4,7 @@ export function initThreeHero({ reducedMotion }) {
   const canvas = document.getElementById('canvas');
   if (!canvas) return { stop() {}, start() {} };
   if (!hasThree()) return { stop() {}, start() {} };
+  if (reducedMotion) return { stop() {}, start() {} };
 
   const THREE = window.THREE;
 
@@ -66,6 +67,7 @@ export function initThreeHero({ reducedMotion }) {
 
   let running = false;
   let rafId = null;
+  let inView = true;
 
   const frame = () => {
     if (!running) return;
@@ -85,8 +87,8 @@ export function initThreeHero({ reducedMotion }) {
   };
 
   const start = () => {
-    if (reducedMotion) return;
     if (running) return;
+    if (!inView) return;
     running = true;
     frame();
   };
@@ -99,11 +101,22 @@ export function initThreeHero({ reducedMotion }) {
     }
   };
 
-  if (reducedMotion) {
-    renderer.render(scene, camera);
-  } else {
-    start();
+  // Only animate when the hero is near/in view (perf).
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        inView = Boolean(entry && entry.isIntersecting);
+        if (!inView) stop();
+        else start();
+      },
+      { rootMargin: '200px 0px' }
+    );
+    io.observe(canvas);
   }
+
+  // Render once for initial paint; animation is gated by intersection + visibility.
+  renderer.render(scene, camera);
 
   return { start, stop };
 }
