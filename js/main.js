@@ -30,16 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Heavier features: wait until external scripts finish loading.
   // (GSAP/Three are loaded as deferred classic scripts.)
   const startHeavy = () => {
-    // Important: reveal + tear down the preloader FIRST to avoid
-    // WebGL context limits on some devices (preloader + hero = 2 contexts).
-    preloader.reveal().finally(() => {
-      const three = initThreeHero({ reducedMotion });
-      initMotion({ reducedMotion });
+    const three = initThreeHero({ reducedMotion, preloader });
+    initMotion({ reducedMotion });
 
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) three.stop();
-        else three.start();
-      });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) three.stop();
+      else three.start();
     });
   };
 
