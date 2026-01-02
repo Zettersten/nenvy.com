@@ -53,6 +53,7 @@ function initTubesWebGL({ canvas, hero, preloader }) {
   let app = null;
   let inView = true;
   let initInFlight = null;
+  let running = false;
 
   const onClick = (event) => {
     const el = event.target;
@@ -63,6 +64,25 @@ function initTubesWebGL({ canvas, hero, preloader }) {
   };
 
   if (hero) hero.addEventListener('pointerup', onClick, { passive: true });
+
+  const setAppRunning = (shouldRun) => {
+    if (!app) return;
+    // We don't know the exact control surface of the external library, so we
+    // probe a few common method names. (No-op if unsupported.)
+    if (shouldRun) {
+      app?.start?.();
+      app?.resume?.();
+      app?.play?.();
+      app?.setEnabled?.(true);
+      app?.setPaused?.(false);
+    } else {
+      app?.stop?.();
+      app?.pause?.();
+      app?.sleep?.();
+      app?.setEnabled?.(false);
+      app?.setPaused?.(true);
+    }
+  };
 
   const ensureApp = async () => {
     if (app) return app;
@@ -83,6 +103,8 @@ function initTubesWebGL({ canvas, hero, preloader }) {
         if (preloader && typeof preloader.reveal === 'function') preloader.reveal();
       }, 450);
 
+      // If we were asked to run while init was in-flight, sync state now.
+      setAppRunning(running && inView);
       return app;
     })()
       .catch((err) => {
@@ -98,31 +120,31 @@ function initTubesWebGL({ canvas, hero, preloader }) {
   };
 
   const start = () => {
+    running = true;
     if (!inView) return;
     // Fire-and-forget: rendering is handled internally by the library.
-    void ensureApp();
+    void ensureApp().then(() => setAppRunning(true));
   };
 
   const stop = () => {
-    // Library exposes dispose() (matches Framer bundle). We'll recreate on start.
-    try {
-      app?.dispose?.();
-    } finally {
-      app = null;
-    }
+    // Don't dispose on scroll-out: some WebGL libs don't recover cleanly after
+    // tearing down the context. Just pause; resume on re-entry.
+    running = false;
+    setAppRunning(false);
   };
 
   if ('IntersectionObserver' in window) {
+    const watchEl = hero || canvas;
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         inView = Boolean(entry && entry.isIntersecting);
-        if (!inView) stop();
-        else start();
+        if (!inView) setAppRunning(false);
+        else if (running) start();
       },
       { rootMargin: '200px 0px' }
     );
-    io.observe(canvas);
+    io.observe(watchEl);
   }
 
   return { start, stop };
@@ -327,6 +349,7 @@ function initTubes2D({ canvas, hero, preloader }) {
   };
 
   if ('IntersectionObserver' in window) {
+    const watchEl = hero || canvas;
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -336,7 +359,7 @@ function initTubes2D({ canvas, hero, preloader }) {
       },
       { rootMargin: '200px 0px' }
     );
-    io.observe(canvas);
+    io.observe(watchEl);
   }
 
   // Initial paint
