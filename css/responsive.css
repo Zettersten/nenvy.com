@@ -132,6 +132,7 @@
   .scroll-line { animation: none; }
   .orb { display: none; }
   .marquee { display: none; }
+  .footer-tetris { display: none; }
   .js-motion [data-reveal] { opacity: 1; transform: none; }
   .btn { transition: none; }
   .capability-card, .subscription-card { transition: none; }
