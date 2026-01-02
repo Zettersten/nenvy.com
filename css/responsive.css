@@ -49,9 +49,12 @@
     --lede: clamp(1.05rem, 4.2vw, 1.2rem);
   }
 
-  body {
-    /* Keep mobile backgrounds calm + classy */
-    background: linear-gradient(180deg, var(--bg), var(--bg2));
+  /* Mobile: keep the fixed backdrop calmer + less contrasty */
+  body::before {
+    background:
+      radial-gradient(900px 560px at 20% 10%, rgba(124, 58, 237, 0.12), transparent 62%),
+      radial-gradient(900px 620px at 85% 8%, rgba(34, 211, 238, 0.09), transparent 66%),
+      linear-gradient(180deg, var(--bg), var(--bg2));
   }
 
 
