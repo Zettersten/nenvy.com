@@ -154,3 +154,253 @@ html.is-loading body {
   text-wrap: pretty;
 }
 
+/* Game cartridge (HTML + CSS 3D), scoped to avoid collisions */
+.game-cartridge {
+  --gc-width: clamp(150px, 18vw, 220px);
+  --gc-height: calc(var(--gc-width) * 1.15);
+  --gc-base-color: #a7a9ac;
+  --gc-dark: #939598;
+  --gc-darker: #828487;
+  --gc-darkest: #727477;
+  --gc-depth: calc(var(--gc-width) / 10);
+  --gc-anim-duration: 20s;
+
+  display: inline-block;
+  width: var(--gc-width);
+  height: var(--gc-height);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 55px rgba(0, 0, 0, 0.45));
+}
+
+.game-cartridge * {
+  box-sizing: border-box;
+}
+
+.game-cartridge figure {
+  margin: 0;
+  position: absolute;
+}
+
+.game-cartridge .gc-case {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  animation: gcCustomRotate var(--gc-anim-duration) infinite linear;
+}
+
+@keyframes gcCustomRotate {
+  0% { transform: none; }
+  100% { transform: rotateZ(360deg) rotateX(360deg); }
+}
+
+.game-cartridge[data-paused="true"] .gc-case {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-cartridge .gc-case {
+    animation: none !important;
+    transform: rotateX(18deg) rotateZ(-10deg);
+  }
+}
+
+.game-cartridge .gc-front,
+.game-cartridge .gc-back {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.game-cartridge .gc-front .gc-base,
+.game-cartridge .gc-back .gc-base {
+  background-color: var(--gc-base-color);
+  position: absolute;
+}
+
+.game-cartridge .gc-front .gc-tall,
+.game-cartridge .gc-back .gc-tall {
+  height: 50%;
+  width: 90%;
+  top: 0;
+  left: 0;
+}
+
+.game-cartridge .gc-front .gc-wide,
+.game-cartridge .gc-back .gc-wide {
+  height: 95%;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+}
+
+.game-cartridge .gc-front .gc-linebase {
+  position: absolute;
+  background-color: var(--gc-dark);
+  width: 100%;
+  height: 15%;
+  top: 9%;
+  left: 0;
+}
+
+.game-cartridge .gc-front .gc-line,
+.game-cartridge .gc-back .gc-line {
+  position: absolute;
+  background-color: var(--gc-base-color);
+  width: 104%;
+  left: -2%;
+  height: calc(15% / 9);
+}
+
+.game-cartridge .gc-front .gc-leftindent,
+.game-cartridge .gc-front .gc-rightindent {
+  position: absolute;
+  height: 65%;
+  width: 2%;
+  bottom: 0;
+  background-color: var(--gc-dark);
+}
+
+.game-cartridge .gc-front .gc-rightindent {
+  right: 0;
+}
+
+.game-cartridge .gc-front .gc-oval {
+  position: absolute;
+  width: 75%;
+  height: 15%;
+  background-color: var(--gc-dark);
+  border: var(--gc-base-color) solid calc(var(--gc-width) / 50);
+  border-radius: 999999px;
+  left: calc(12.5% - 2%);
+  top: 7%;
+}
+
+.game-cartridge .gc-front .gc-label {
+  height: calc(var(--gc-width) * 0.7);
+  width: 70%;
+  bottom: 7%;
+  left: calc(15% - 1%);
+  position: absolute;
+  border: var(--gc-darker) solid calc(var(--gc-width) / 100);
+  border-radius: calc(var(--gc-width) / 50);
+  background:
+    radial-gradient(900px 520px at 20% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.75), rgba(34, 211, 238, 0.55), rgba(163, 255, 18, 0.35));
+  background-size: cover;
+  background-position: center;
+}
+
+.game-cartridge[data-label-url] .gc-front .gc-label {
+  background: var(--gc-label-url) center / cover no-repeat;
+  background-color: var(--gc-darker); /* for transparent images */
+}
+
+.game-cartridge .gc-front {
+  transform: translateZ(calc(var(--gc-depth) / 2));
+}
+
+.game-cartridge .gc-back {
+  transform: translateZ(calc(var(--gc-depth) / -2));
+}
+
+.game-cartridge .gc-rightside,
+.game-cartridge .gc-leftside {
+  width: var(--gc-depth);
+  height: 100%;
+  bottom: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(90deg);
+}
+
+.game-cartridge .gc-rightside {
+  right: calc(var(--gc-depth) / -2);
+}
+
+.game-cartridge .gc-leftside {
+  left: calc(var(--gc-depth) / -2);
+}
+
+.game-cartridge .gc-rightside .gc-top {
+  background-color: var(--gc-darker);
+  width: 100%;
+  height: 5%;
+  transform: translateZ(calc(var(--gc-width) * -0.1));
+}
+
+.game-cartridge .gc-rightside .gc-bottom,
+.game-cartridge .gc-leftside .gc-bottom {
+  bottom: 0;
+  background-color: var(--gc-dark);
+  width: 100%;
+  height: 95%;
+}
+
+.game-cartridge .gc-rightside .gc-line,
+.game-cartridge .gc-leftside .gc-line {
+  background-color: var(--gc-darker);
+  height: calc(15% / 9);
+  width: 100%;
+  transform: translateZ(calc(var(--gc-width) * 0.02));
+}
+
+.game-cartridge .gc-rightside .gc-floor,
+.game-cartridge .gc-rightside .gc-ceiling,
+.game-cartridge .gc-leftside .gc-floor,
+.game-cartridge .gc-leftside .gc-ceiling {
+  background-color: var(--gc-dark);
+  width: 100%;
+  height: calc(var(--gc-width) * 0.04);
+  transform: rotateX(90deg);
+}
+
+.game-cartridge .gc-rightside .gc-ceiling,
+.game-cartridge .gc-leftside .gc-ceiling {
+  transform: translateY(calc(var(--gc-height) * (-0.15 / 9))) rotateX(90deg);
+}
+
+.game-cartridge .gc-leftside .gc-bottom {
+  height: 100%;
+}
+
+.game-cartridge .gc-leftside .gc-line {
+  transform: translateZ(calc(var(--gc-width) * -0.02));
+}
+
+.game-cartridge .gc-topside {
+  width: 100%;
+  height: calc(var(--gc-width) * 0.1);
+  top: calc(var(--gc-width) * -0.05);
+  transform: rotateX(90deg);
+  transform-style: preserve-3d;
+}
+
+.game-cartridge .gc-topside .gc-left {
+  background-color: var(--gc-dark);
+  width: 90%;
+  height: 100%;
+}
+
+.game-cartridge .gc-topside .gc-right {
+  background-color: var(--gc-darker);
+  width: 10%;
+  height: 100%;
+  right: 0;
+  transform: translateZ(calc(var(--gc-height) * -0.05));
+}
+
+.game-cartridge .gc-bottomside {
+  background-color: #262626;
+  bottom: calc(var(--gc-width) * -0.05);
+  height: calc(var(--gc-width) * 0.05);
+  width: calc(var(--gc-width) - var(--gc-width) * 0.05);
+  transform: rotateX(90deg);
+  border: var(--gc-darker) calc(var(--gc-width) * 0.025) solid;
+}
+
+.game-cartridge .gc-one { top: calc(9% + (15% / 9) * 1); }
+.game-cartridge .gc-two { top: calc(9% + (15% / 9) * 3); }
+.game-cartridge .gc-three { top: calc(9% + (15% / 9) * 5); }
+.game-cartridge .gc-four { top: calc(9% + (15% / 9) * 7); }
+
