@@ -7,6 +7,7 @@ import { initMobileNav } from './features/nav.js';
 import { initPaypalSubscribe } from './features/paypal-subscribe.js';
 import { initPreloaderShader } from './features/preloader-shader.js';
 import { initFooterTetris } from './features/footer-tetris.js';
+import { initGameCartridge } from './features/game-cartridge.js';
 import { initMotion } from './motion/gsap-motion.js';
 
 document.documentElement.classList.add('js');
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav({ reducedMotion });
   initPaypalSubscribe({ reducedMotion });
   initFooterTetris({ reducedMotion });
+  initGameCartridge({ reducedMotion });
 
   // Heavier features: wait until external scripts finish loading.
   // (GSAP/Three are loaded as deferred classic scripts.)
