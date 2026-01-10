@@ -59,6 +59,7 @@
 
 
   .philosophy,
+  .insight,
   .subscriptions,
   .about,
   .footer {
@@ -68,6 +69,7 @@
   .manifesto,
   .process-left,
   .step,
+  .insight-card,
   .capability-card,
   .subscription-card,
   .proof-card {
