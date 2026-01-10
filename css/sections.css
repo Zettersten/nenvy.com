@@ -556,6 +556,82 @@
   line-height: 1.7;
 }
 
+/* Insight */
+.insight {
+  padding: var(--section-py) 0;
+}
+
+.insight-card {
+  border-radius: var(--radius2);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(1000px 520px at 18% 0%, rgba(124, 58, 237, 0.12), transparent 60%),
+    radial-gradient(900px 520px at 82% 12%, rgba(34, 211, 238, 0.10), transparent 62%),
+    rgba(255, 255, 255, 0.03);
+  box-shadow: var(--shadow2);
+}
+
+.insight-eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.insight-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.insight-body {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-inline-size: 78ch;
+}
+
+.insight-body p {
+  margin: 0 0 1rem;
+}
+
+.insight-body p:last-child {
+  margin-bottom: 0;
+}
+
+.insight-points {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.insight-points li {
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.6;
+}
+
+.insight-points strong {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 650;
+}
+
+.insight-cta {
+  margin-top: 1.35rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
 /* Capabilities */
 .capabilities {
   padding: var(--section-py) 0;
