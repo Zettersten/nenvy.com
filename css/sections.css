@@ -1134,3 +1134,348 @@
   }
 }
 
+/* Client page */
+.client-hero-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.client-hero-panel {
+  justify-self: end;
+  align-self: start;
+  width: min(380px, 100%);
+  padding: clamp(1.1rem, 2.4vw, 1.8rem);
+  border-radius: var(--radius2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(800px 320px at 10% 0%, rgba(124, 58, 237, 0.16), transparent 60%),
+    radial-gradient(700px 320px at 80% 0%, rgba(34, 211, 238, 0.12), transparent 60%),
+    rgba(7, 8, 11, 0.65);
+  box-shadow: var(--shadow2);
+}
+
+.client-hero-panel-header {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.client-hero-panel-label {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.client-hero-panel-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  letter-spacing: -0.03em;
+}
+
+.client-hero-panel-sub {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.client-hero-meta {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+}
+
+.client-hero-meta div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1.55fr);
+  gap: 0.75rem;
+}
+
+.client-hero-meta dt {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.client-hero-meta dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.client-hero-meta a,
+.client-definition a,
+.subscribe-card p a {
+  color: rgba(34, 211, 238, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.25);
+}
+
+.client-hero-meta a:hover,
+.client-definition a:hover,
+.subscribe-card p a:hover {
+  border-bottom-color: rgba(34, 211, 238, 0.55);
+}
+
+.client-hero-actions {
+  display: grid;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.client-hero-note {
+  margin: 0.9rem 0 0;
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.client-overview,
+.client-scope,
+.invoice,
+.client-subscribe {
+  padding: var(--section-py) 0;
+}
+
+.client-card {
+  border-radius: var(--radius2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: var(--shadow2);
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.client-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.client-definition {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+}
+
+.client-definition div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1.55fr);
+  gap: 0.75rem;
+}
+
+.client-definition dt {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.client-definition dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.client-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.client-list li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+.client-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.scope-card h3 {
+  margin: 0 0 0.7rem;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.scope-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+.scope-list li + li {
+  margin-top: 0.55rem;
+}
+
+.invoice-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+}
+
+.invoice-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.invoice-eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.invoice-badge {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.invoice-table-wrap {
+  margin-top: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.invoice-table th,
+.invoice-table td {
+  padding: 0.75rem 0.95rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.invoice-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.invoice-table td {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.invoice-table tr:last-child td {
+  border-bottom: none;
+}
+
+.invoice-table .amount {
+  text-align: right;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+.invoice-totals {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.invoice-total-row {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.invoice-total-row.total {
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.invoice-note {
+  margin: 0.9rem 0 0;
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.invoice-summary h3 {
+  margin: 0 0 0.85rem;
+}
+
+.invoice-list {
+  margin: 0 0 1rem;
+  padding-left: 1.1rem;
+  color: rgba(255, 255, 255, 0.72);
+  display: grid;
+  gap: 0.6rem;
+  line-height: 1.6;
+}
+
+.invoice-meta {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.meta-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.meta-value {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.subscribe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: start;
+}
+
+.subscribe-card {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.subscribe-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+}
+
+.subscribe-card .btn {
+  width: fit-content;
+}
+

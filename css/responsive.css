@@ -6,6 +6,19 @@
     grid-template-columns: 1fr;
   }
 
+  .client-hero-content,
+  .client-overview-grid,
+  .client-scope-grid,
+  .invoice-grid,
+  .subscribe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .client-hero-panel {
+    width: 100%;
+    justify-self: stretch;
+  }
+
   .capabilities-cta {
     justify-content: stretch;
   }
@@ -72,7 +85,8 @@
   .insight-card,
   .capability-card,
   .subscription-card,
-  .proof-card {
+  .proof-card,
+  .client-card {
     box-shadow: none;
     background: rgba(255, 255, 255, 0.02);
     border-color: rgba(255, 255, 255, 0.10);
@@ -123,6 +137,20 @@
 
   .about-content {
     grid-template-columns: 1fr;
+  }
+
+  .client-hero-meta div,
+  .client-definition div {
+    grid-template-columns: 1fr;
+  }
+
+  .client-hero-panel {
+    padding: 1.4rem;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    padding: 0.65rem 0.75rem;
   }
 }
 
